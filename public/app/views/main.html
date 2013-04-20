@@ -1,0 +1,18 @@
+<div class='listObj' ng-repeat="listObj in lists">
+    <h2>{{listObj.name}}</h2>
+    <div ng-show='showStatusForToday($index)'>
+        <button ng-click='notGood($index)'>Today wasn't very good</button>
+        <button ng-click='good($index)'>Today was all right</button>
+    </div>
+</div>
+
+<div ng-show='!showAddNewList' ng-click='showAddNewList = !showAddNewList'><button>Add A New List</button></div>
+<form ng-show='showAddNewList'>
+    <div>
+        <input type='text' ng-model='newName' placeholder='New list'/>
+    </div>
+    <div>
+        Time Unit By Day: <input type='checkbox' ng-model='newByDay'>
+    </div>
+    <button ng-click='save()'>Add</button>
+</form>
