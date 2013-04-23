@@ -5,7 +5,8 @@ angular.module('publicApp')
       $scope.lists = [{
           name: 'list1',
           byDay: true,
-          days: []
+          days: { '1366703459' : 100 }
+          //days is like new Date().valueOf() / 1000, on a scale of 0 to 100
       }, {
           name: 'list2',
           byDay: false,
@@ -41,22 +42,4 @@ angular.module('publicApp')
               return day.dayTime == truncatedToday;
           });
       };
-
-/*
-    setTimeout(function() {
-        var oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        for(var i = 0; i < 2; ++i) {
-          var cal = new CalHeatMap();
-          cal.init({
-              id: 'heatmap' + i,
-              domain: 'week',
-              subDomain: 'day',
-              range: 20,
-              data: $scope.lists[i].days,
-              start: oneYearAgo
-          });
-        }
-    }, 5000);
-    */
   }]);

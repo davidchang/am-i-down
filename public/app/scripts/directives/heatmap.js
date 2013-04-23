@@ -5,11 +5,10 @@ angular.module('publicApp')
     return {
       template: '<div id="mymap{{id}}"></div>',
       restrict: 'E',
-      scope: { id: '@' },
+      scope: { id: '@', data: '=' },
       link: function postLink(scope, element, attrs) {
-        console.error(scope.id);
         var oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        //oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
         setTimeout(function() {
             var cal = new CalHeatMap();
             cal.init({
@@ -17,7 +16,7 @@ angular.module('publicApp')
               domain: 'week',
               subDomain: 'day',
               range: 52,
-              data: {},
+              data: scope.data,
               start: oneYearAgo
             });
         });

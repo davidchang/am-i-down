@@ -4,8 +4,7 @@
         <button ng-click='notGood($index)'>Today wasn't very good</button>
         <button ng-click='good($index)'>Today was all right</button>
     </div>
-    <!--<div id='heatmap{{$index}}'></div>-->
-    <heatmap id='{{$index}}'></heatmap>
+    <heatmap id='{{$index}}' data='listObj.days'></heatmap>
 </div>
 
 <div ng-show='!showAddNewList' ng-click='showAddNewList = !showAddNewList'><button>Add A New List</button></div>
