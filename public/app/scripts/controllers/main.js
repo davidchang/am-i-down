@@ -42,6 +42,7 @@ angular.module('publicApp')
           });
       };
 
+/*
     setTimeout(function() {
         var oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -49,12 +50,13 @@ angular.module('publicApp')
           var cal = new CalHeatMap();
           cal.init({
               id: 'heatmap' + i,
-              domain: 'year',
+              domain: 'week',
               subDomain: 'day',
-              range: 1,
+              range: 20,
               data: $scope.lists[i].days,
               start: oneYearAgo
           });
         }
     }, 5000);
+    */
   }]);
