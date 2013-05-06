@@ -4,7 +4,11 @@
         <button ng-click='statusChange($index, false)'>Today wasn't very good</button>
         <button ng-click='statusChange($index, true)'>Today was all right</button>
     </div>
+    <div ng-hide='showStatusForToday($index)'>
+        Thanks - you've indicated today <span ng-show='getStatusForToday($index)'>was all right</span><span ng-hide='getStatusForToday($index)'>wasn't very good</span><a ng-click='undoToday($index)'>Undo</a>
+    </div>
     <!--<heatmap id='{{$index}}' data='listObj.days'></heatmap>-->
+    <h3>History</h3>
     <div ng-hide='day.good' ng-repeat='day in listObj.days'>
         {{day.dayTime | date:'MM/dd/yyyy'}}
     </div>
@@ -18,5 +22,5 @@
     <div>
         Time Unit By Day: <input type='checkbox' ng-model='newByDay'>
     </div>
-    <button ng-click='save()'>Add</button>
+    <button ng-click='createNewList()'>Add</button>
 </form>
