@@ -5,7 +5,7 @@ angular.module('publicApp')
       $scope.lists = [{
           name: 'list1',
           byDay: true,
-          days: { '1366703459' : 100 }
+          days: []
           //days is like new Date().valueOf() / 1000, on a scale of 0 to 100
       }, {
           name: 'list2',
@@ -29,12 +29,12 @@ angular.module('publicApp')
 
       function truncatedDay(d) {
           d = d || new Date();
-          var truncatedD = d.toString().split(' ', 4).join(' ').toString();
+          return new Date(d.toString().split(' ', 4).join(' ').toString()).valueOf();
       }
 
-      $scope.notGood = function(i) {
-          $scope.lists[i].days.push({ realTime: new Date(), dayTime: truncatedDay()});
-      };
+      $scope.statusChange = function(i, isGood) {
+          $scope.lists[i].days.push({ realTime: new Date(), dayTime: truncatedDay(), good: isGood});
+      }
 
       $scope.showStatusForToday = function(i) {
           var truncatedToday = truncatedDay();
