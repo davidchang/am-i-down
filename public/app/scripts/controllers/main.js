@@ -9,7 +9,6 @@ angular.module('publicApp')
               name: 'list1',
               byDay: true,
               days: []
-              //days is like new Date().valueOf() / 1000, on a scale of 0 to 100
           }, {
               name: 'list2',
               byDay: false,
@@ -28,7 +27,6 @@ angular.module('publicApp')
           $scope.lists.push({ name: $scope.newName, byDay: $scope.newByDay, days: [] });
           $scope.newName = '';
           $scope.newByDay = true;
-          $scope.showAddNewList = false;
           save();
       };
 
@@ -41,9 +39,38 @@ angular.module('publicApp')
           ls.add('lists', JSON.stringify($scope.lists));
       }
 
-      $scope.statusChange = function(i, isGood) {
-          $scope.lists[i].days.push({ realTime: new Date(), dayTime: truncatedDay(), good: isGood});
+function isValidDate(date)
+{
+    var matches = /^(\d{2})[-\/](\d{2})[-\/](\d{4})$/.exec(date);
+    if (matches == null) return false;
+    var d = matches[2];
+    var m = matches[1] - 1;
+    var y = matches[3];
+    var composedDate = new Date(y, m, d);
+    return (composedDate.getDate() == d &&
+            composedDate.getMonth() == m &&
+            composedDate.getFullYear() == y) ? composedDate : false;
+}
+
+      $scope.statusChange = function(i, isGood, dateToUse) {
+          var validDate = isValidDate($scope.lists[i].backfillDate);
+          if(dateToUse && !validDate) {
+            console.log('error');
+            return;
+          }
+
+          var time = dateToUse ? validDate : new Date();
+          var truncatedBackfillDay = truncatedDay(time);
+          var day = _.find($scope.lists[i].days, function(day) {
+              return day.dayTime == truncatedBackfillDay;
+          });
+          if(day)
+            day.good = isGood;
+          else
+            $scope.lists[i].days.push({ realTime: time, dayTime: truncatedBackfillDay, good: isGood});
+
           save();
+          $scope.lists[i].backfillDate = '';
       }
 
       $scope.showStatusForToday = function(i) {
@@ -69,5 +96,7 @@ angular.module('publicApp')
 
           var index = $scope.lists[i].days.indexOf(day);
           $scope.lists[i].days.splice(index, 1);
+
+          save();
       };
   }]);
