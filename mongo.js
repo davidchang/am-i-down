@@ -7,6 +7,18 @@ db.once('open', function callback () {
       // yay!
 });
 
+var userSchema = mongoose.Schema({
+    name: String,
+    email: String,
+    username: String,
+    provider: String,
+    facebook: mongoose.Schema.Types.Mixed,
+    twitter: mongoose.Schema.Types.Mixed
+});
+
+var User = mongoose.model('User', userSchema);
+
+/*
 var moodSchema = mongoose.Schema({
     userId: String,
     date: { type: Date, default: Date.now },
@@ -25,8 +37,8 @@ var eventSchema = mongoose.Schema({
 });
 
 var Event = mongoose.model('Event', eventSchema);
+*/
 
 module.exports = {
-    Mood: Mood,
-    Event: Event
+    User: User
 }
