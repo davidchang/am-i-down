@@ -18,6 +18,18 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema);
 
+var listSchema = mongoose.Schema({
+    name: String,
+    days: [{
+        realTime: Number,
+        dayTime: Number,
+        good: Boolean   
+    }],
+    userId: Number
+});
+
+var List = mongoose.model('List', listSchema);
+
 /*
 var moodSchema = mongoose.Schema({
     userId: String,
@@ -40,5 +52,6 @@ var Event = mongoose.model('Event', eventSchema);
 */
 
 module.exports = {
-    User: User
+    User: User,
+    List: List
 }

@@ -24,6 +24,17 @@ module.exports.setRoutes = function(app, passport) {
         res.end(JSON.stringify(req.user));
     });
 
+    app.get('/lists', function(req, res) {
+        res.writeHead(200, { "Content-Type" : 'text/plain' });
+        schemas.List.find({ userId: req.user.id }, function(error, data) {
+            if(error) {
+                console.log(error);
+                res.end(JSON.stringify({ error: error }));
+            }
+            res.end(JSON.stringify(data));
+        });
+    });
+
     app.get('/mood', function(req, res) {
         schemas.Mood.find({ userId: req.user.id }, function(error, data) {
             if(error) {

@@ -1,24 +1,19 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('MainCtrl', ['$scope', 'localStorageService', '$location', 'Auth', function ($scope, ls, $location, Auth) {
+  .controller('MainCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
       Auth.isLoggedIn().then(function(loggedIn) {
           if(!loggedIn)
               $location.path( '/login' );
       });
 
-      if(ls.get('lists'))
-          $scope.lists = JSON.parse(ls.get('lists'));
-      else {
-          $scope.lists = [{
-              name: 'list1',
-              byDay: true,
-              days: []
-          }, {
-              name: 'list2',
-              byDay: false,
-              days: []
-          }];
+      try {
+          REST.getLists(function(data) {
+            console.log(data);
+            $scope.lists = data.data;
+          });
+      } catch(err) {
+          $scope.lists = [];
       }
 
       $scope.showAddNewList = false;
@@ -41,7 +36,7 @@ angular.module('publicApp')
       }
 
       function save() {
-          ls.add('lists', JSON.stringify($scope.lists));
+          //ls.add('lists', JSON.stringify($scope.lists));
       }
 
 function isValidDate(date)
