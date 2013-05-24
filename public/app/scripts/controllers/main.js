@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('MainCtrl', ['$scope', 'localStorageService', function ($scope, ls) {
+  .controller('MainCtrl', ['$scope', 'localStorageService', '$location', 'Auth', function ($scope, ls, $location, Auth) {
+      if(!Auth.isLoggedIn())
+          $location.path( '/login' );
+
       if(ls.get('lists'))
           $scope.lists = JSON.parse(ls.get('lists'));
       else {

@@ -18,6 +18,12 @@ module.exports.setRoutes = function(app, passport) {
     });
 
     /* REST */
+    app.get('/user', function(req, res) {
+        res.writeHead(200, { "Content-Type" : 'text/plain' });
+        console.log(req.user);
+        res.end(JSON.stringify(req.user));
+    });
+
     app.get('/mood', function(req, res) {
         schemas.Mood.find({ userId: req.user.id }, function(error, data) {
             if(error) {

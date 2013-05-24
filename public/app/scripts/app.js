@@ -5,13 +5,14 @@ angular.module('publicApp', ['LocalStorageModule'])
     $routeProvider
       .when('/login', {
         templateUrl: 'views/logInView.html',
-        controller: 'LogInCtrl'
+        controller: 'LogInCtrl',
+        public: true
       })
-      .when('/', {
+      .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
       });
   }]);
