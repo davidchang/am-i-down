@@ -2,8 +2,10 @@
 
 angular.module('publicApp')
   .controller('MainCtrl', ['$scope', 'localStorageService', '$location', 'Auth', function ($scope, ls, $location, Auth) {
-      if(!Auth.isLoggedIn())
-          $location.path( '/login' );
+      Auth.isLoggedIn().then(function(loggedIn) {
+          if(!loggedIn)
+              $location.path( '/login' );
+      });
 
       if(ls.get('lists'))
           $scope.lists = JSON.parse(ls.get('lists'));

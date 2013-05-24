@@ -8,7 +8,6 @@ angular.module('publicApp')
 
             $http.get('/user')
                 .then(function(res) {
-                    console.log(res.data);
                     deferred.resolve(res.data);
                 });
 
