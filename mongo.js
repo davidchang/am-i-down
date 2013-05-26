@@ -19,13 +19,17 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 var listSchema = mongoose.Schema({
-    name: String,
-    days: [{
-        realTime: Number,
-        dayTime: Number,
-        good: Boolean   
-    }],
-    userId: Number
+    lists: [{
+            name: String,
+            startDate: { type: Date, default: Date.now },
+            days: [{
+                realTime: Number,
+                dayTime: Number,
+                good: Boolean   
+            }]
+        }
+    ],
+    userId: String
 });
 
 var List = mongoose.model('List', listSchema);

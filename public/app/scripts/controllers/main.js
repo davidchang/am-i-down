@@ -19,14 +19,12 @@ angular.module('publicApp')
       $scope.showAddNewList = false;
 
       $scope.newName = '';
-      $scope.newByDay = true;
       $scope.createNewList = function() {
           if(!$scope.newName)
               return;
 
-          $scope.lists.push({ name: $scope.newName, byDay: $scope.newByDay, days: [] });
+          $scope.lists.push({ name: $scope.newName, days: [], startDate: new Date() });
           $scope.newName = '';
-          $scope.newByDay = true;
           save();
       };
 
@@ -37,6 +35,7 @@ angular.module('publicApp')
 
       function save() {
           //ls.add('lists', JSON.stringify($scope.lists));
+          REST.saveLists($scope.lists);
       }
 
 function isValidDate(date)

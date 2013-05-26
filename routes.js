@@ -31,7 +31,24 @@ module.exports.setRoutes = function(app, passport) {
                 console.log(error);
                 res.end(JSON.stringify({ error: error }));
             }
+            console.log('returning from get /lists');
+            console.log(data);
             res.end(JSON.stringify(data));
+        });
+    });
+
+    app.post('/lists', function(req, res) {
+        console.log("RECEIVED LISTS: ");
+        console.log(req.body.lists);
+
+        var lists = new schemas.List({
+            userId: req.user.id,
+            lists: lists
+        });
+
+        lists.save(function(err, lists) {
+            if(err)
+                console.log(err);
         });
     });
 

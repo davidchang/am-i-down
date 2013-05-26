@@ -8,6 +8,12 @@ angular.module('publicApp')
                 .then(function(res) {
                     callback(res);
                 });
+        },
+        saveLists: function(lists, callback) {
+            $http.post('/lists', {lists: lists})
+                .then(function(res) {
+                    callback && callback(res);
+                });
         }
     };
   }]);
