@@ -182,6 +182,14 @@ module.exports = function (grunt) {
             '<%= yeoman.app %>/styles/{,*/}*.css'
           ]
         }
+      },
+      expressapp: {
+        files: {
+          '<%= yeoman.app %>/styles/main.css': [
+            '.tmp/styles/{,*/}*.css',
+            '<%= yeoman.app %>/styles/{,*/}*.css'
+          ]
+        }
       }
     },
     htmlmin: {
@@ -271,6 +279,14 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
+  grunt.registerTask('express-server', [
+    'clean:server',
+    'compass:server',
+    'cssmin:expressapp',
+    'livereload-start',
+    'watch'
+  ]);
+
   grunt.registerTask('test', [
     'clean:server',
     'coffee',
@@ -287,7 +303,7 @@ module.exports = function (grunt) {
     'compass:dist',
     'useminPrepare',
     'imagemin',
-    'cssmin',
+    'cssmin:dist',
     'htmlmin',
     'concat',
     'copy',
