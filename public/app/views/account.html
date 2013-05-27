@@ -1,0 +1,14 @@
+<a href='logout'>Log out</a>
+<a href='#/account'>Account</a>
+
+<div>
+  Username: <input ng-model='urlName'></input>
+</div>
+
+<div>
+  <div>Lists are public if checked</div>
+  <div ng-repeat='listObj in lists'>
+    <input type='checkbox' ng-click='save()' ng-model='listObj.public'></input>
+    {{listObj.name}}
+  </div>
+</div>

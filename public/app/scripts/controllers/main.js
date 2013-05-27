@@ -25,7 +25,7 @@ angular.module('publicApp')
           if(!$scope.newName)
               return;
 
-          $scope.lists.push({ name: $scope.newName, days: [], startDate: new Date() });
+          $scope.lists.push({ name: $scope.newName, days: [], startDate: new Date(), public: false });
           $scope.newName = '';
           save();
       };
@@ -36,7 +36,6 @@ angular.module('publicApp')
       }
 
       function save() {
-          //ls.add('lists', JSON.stringify($scope.lists));
           REST.saveLists($scope.lists);
       }
 

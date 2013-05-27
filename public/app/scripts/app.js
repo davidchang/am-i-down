@@ -8,6 +8,10 @@ angular.module('publicApp', ['LocalStorageModule'])
         controller: 'LogInCtrl',
         public: true
       })
+      .when('/account', {
+        templateUrl: 'views/account.html',
+        controller: 'AccountCtrl'
+      })
       .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'

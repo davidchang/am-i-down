@@ -28,7 +28,8 @@ var listSchema = mongoose.Schema({
                 realTime: Number,
                 dayTime: Number,
                 good: Boolean   
-            }]
+            }],
+            public: { type: Boolean, default: false }
         }
     ],
     userId: String
