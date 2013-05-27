@@ -1,7 +1,10 @@
 <a href='logout'>Log out</a>
 
 <div class='listObj' ng-repeat="listObj in lists">
-    <h2>{{listObj.name}}</h2>
+    <div>
+        <h2>{{listObj.name}}</h2>
+    </div>
+
     <div ng-show='showStatusForToday($index)'>
         <span>How did you to today?</span>
         <button ng-click='statusChange($index, false)'>Oops :/</button>

@@ -7,6 +7,7 @@ db.once('open', function callback () {
       // yay!
 });
 
+//USER
 var userSchema = mongoose.Schema({
     name: String,
     email: String,
@@ -18,6 +19,7 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User', userSchema);
 
+//LIST
 var listSchema = mongoose.Schema({
     lists: [{
             name: String,
@@ -33,27 +35,6 @@ var listSchema = mongoose.Schema({
 });
 
 var List = mongoose.model('List', listSchema);
-
-/*
-var moodSchema = mongoose.Schema({
-    userId: String,
-    date: { type: Date, default: Date.now },
-    mood: {
-        type: String,
-        value: Number
-    }
-});
-
-var Mood = mongoose.model('Mood', moodSchema);
-
-var eventSchema = mongoose.Schema({
-    userId: String,
-    date: { type: Date, default: Date.now },
-    text: String
-});
-
-var Event = mongoose.model('Event', eventSchema);
-*/
 
 module.exports = {
     User: User,

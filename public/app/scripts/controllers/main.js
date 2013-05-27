@@ -8,9 +8,11 @@ angular.module('publicApp')
       });
 
       try {
-          REST.getLists(function(data) {
-            console.log(data);
-            $scope.lists = data.data;
+          REST.getLists(function(res) {
+            if(!res || !res.data || !res.data.lists)
+              $scope.lists = [];
+            else
+              $scope.lists = res.data.lists;
           });
       } catch(err) {
           $scope.lists = [];
