@@ -1,5 +1,6 @@
-<a href='logout'>Log out</a>
-<a href='#/account'>Account</a>
+<div>
+  <a href='logout'>Log out</a>
+</div>
 
 <div class='listObj' ng-repeat="listObj in lists">
     <div>
@@ -7,27 +8,24 @@
     </div>
 
     <div ng-show='showStatusForToday($index)'>
-        <div>How did you to today?</div>
-        <textarea ng-model='listObj.textExplanation' placeholder='Optional explanation'></textarea>
-        <div>
-          <button ng-click='statusChange($index, false)'>Oops :/</button>
-          <button ng-click='statusChange($index, true)'>High five</button>
-        </div>
+        How did you to today?
+          <button ng-click='statusChange($index, true)'>{{listObj.desiredOutcome}}</button>
+          <button ng-click='statusChange($index, false)'>{{listObj.oppositeOutcome}}</button>
     </div>
     <div ng-hide='showStatusForToday($index)'>
       <div>
-        Thanks - you've indicated today <span ng-show='getStatusForToday($index)'>was all right</span><span ng-hide='getStatusForToday($index)'>wasn't very good</span><a ng-click='undoToday($index)' class='undoLink'>Undo</a>
+        <span ng-show='getStatusForToday($index)'>High five!</span><span ng-hide='getStatusForToday($index)'>:/ Thanks for your honesty</span><a ng-click='undoToday($index)' class='undoLink'>Undo</a>
         </div>
     </div>
     <!--<heatmap id='{{$index}}' data='listObj.days'></heatmap>-->
     <a class='block' ng-click='listObj.showBackfill = !listObj.showBackfill'>Backfill data</a>
     <div ng-show='listObj.showBackfill'>
-        <input ng-model='listObj.backfillDate' />
-        <button ng-click='statusChange($index, false, true)'>-</button>
-        <button ng-click='statusChange($index, true, true)'>+</button>
+        <input ng-model='listObj.backfillDate' placeholder='mm/dd/yyyy'/>
+        <button ng-click='statusChange($index, false, true)'>{{listObj.desiredOutcome}}</button>
+        <button ng-click='statusChange($index, true, true)'>{{listObj.oppositeOutcome}}</button>
     </div>
 
-    <a class='block' ng-click='listObj.showHistory = !listObj.showHistory'>History</a>
+    <a class='block' ng-click='listObj.showHistory = !listObj.showHistory'>Bad Days</a>
     <div ng-show='listObj.showHistory'>
         <div ng-hide='day.good' ng-repeat='day in listObj.days'>
             {{day.dayTime | date:'MM/dd/yyyy'}}
@@ -35,10 +33,34 @@
     </div>
 </div>
 
-<div ng-show='!showAddNewList' ng-click='showAddNewList = !showAddNewList'><button>Add A New List</button></div>
-<form ng-show='showAddNewList'>
-    <div>
-        <input type='text' ng-model='newName' placeholder='New list'/>
+<div id='newListDiv'>
+  <h2>Add New List:</h2>
+  <form class='form-horizontal' name='newListForm'>
+    <div class='control-group'>
+      <label class='control-label' for='newName'>List Name:</label>
+      <div class='controls'>
+        <input id='newName' type='text' ng-model='newList.name' placeholder='Ex: Porn' required/>
+      </div>
     </div>
-    <button ng-click='createNewList()'>Add</button>
-</form>
+    <div class='control-group'>
+      <label class='control-label' for='desiredOutcome'>Desired Outcome:</label>
+      <div class='controls'>
+        <input id='desiredOutcome' type='text' ng-model='newList.desiredOutcome' placeholder="Ex: Didn't look at porn" required/>
+      </div>
+    </div>
+    <div class='control-group marginBottomFive'>
+      <label class='control-label' for='oppositeOutcome'>Opposite Outcome:</label>
+      <div class='controls'>
+        <input id='oppositeOutcome' type='text' ng-model='newList.oppositeOutcome' placeholder='Ex: Looked at porn' required/>
+      </div>
+    </div>
+    <div class='control-group'>
+      <div class='controls'>
+        <label class='checkbox marginBottomFive'>
+          <input type='checkbox' ng-model='newList.useDesiredAsDefault'>Use Desired Outcome as Default</input>
+        </label>
+        <button ng-click='createNewList()'>Add</button>
+      </div>
+    </div>
+  </form>
+</div>

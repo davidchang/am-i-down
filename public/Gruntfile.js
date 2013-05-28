@@ -31,7 +31,7 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass']
+        tasks: ['compass', 'cssmin:expressapp']
       },
       livereload: {
         files: [
@@ -178,8 +178,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '<%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css'
+            '.tmp/styles/{,*/}*.css'
           ]
         }
       },
@@ -187,7 +186,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.app %>/styles/main.css': [
             '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css'
+            '<%= yeoman.app %>/styles/{,*/}*.css',
           ]
         }
       }
@@ -279,7 +278,7 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('express-server', [
+  grunt.registerTask('css-server', [
     'clean:server',
     'compass:server',
     'cssmin:expressapp',

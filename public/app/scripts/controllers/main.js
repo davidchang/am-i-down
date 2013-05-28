@@ -3,40 +3,47 @@
 angular.module('publicApp')
   .controller('MainCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
       Auth.isLoggedIn().then(function(loggedIn) {
-          if(!loggedIn)
-              $location.path( '/login' );
+        if(!loggedIn)
+          $location.path( '/login' );
       });
 
       try {
-          REST.getLists(function(res) {
-            if(!res || !res.data || !res.data.lists)
-              $scope.lists = [];
-            else
-              $scope.lists = res.data.lists;
-          });
+        REST.getLists(function(res) {
+          if(!res || !res.data || !res.data.lists)
+            $scope.lists = [];
+          else
+            $scope.lists = res.data.lists;
+        });
       } catch(err) {
-          $scope.lists = [];
+        $scope.lists = [];
       }
 
-      $scope.showAddNewList = false;
+      $scope.newList = {
+        useDesiredAsDefault : true
+      };
 
-      $scope.newName = '';
       $scope.createNewList = function() {
-          if(!$scope.newName)
-              return;
+        var toAdd = $scope.newList;
+        toAdd.days = [];
+        toAdd.startDate = new Date();
+        toAdd.public = false;
 
-          $scope.lists.push({ name: $scope.newName, days: [], startDate: new Date(), public: false });
-          $scope.newName = '';
-          save();
+        $scope.lists.push(toAdd);
+        save();
+
+        /*$scope.newListForm.$setPristine();
+        $scope.newList = {
+          useDesiredAsDefault : true
+        };*/
       };
 
       function truncatedDay(d) {
-          d = d || new Date();
-          return new Date(d.toString().split(' ', 4).join(' ').toString()).valueOf();
+        d = d || new Date();
+        return new Date(d.toString().split(' ', 4).join(' ').toString()).valueOf();
       }
 
       function save() {
-          REST.saveLists($scope.lists);
+        REST.saveLists($scope.lists);
       }
 
 function isValidDate(date)

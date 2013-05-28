@@ -32,6 +32,7 @@ module.exports.setRoutes = function(app, passport) {
     });
 
     app.post('/lists', function(req, res) {
+      console.log(req.body.lists);
         schemas.List.update({ userId: req.user.id }, {
             userId: req.user.id,
             lists: req.body.lists
