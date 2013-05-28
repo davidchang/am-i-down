@@ -1,6 +1,5 @@
 var config = require('./config')
   , FacebookStrategy = require('passport-facebook').Strategy
-  , TwitterStrategy = require('passport-twitter').Strategy
   , schemas = require('./mongo')
   , User = schemas.User;
 
@@ -19,35 +18,7 @@ module.exports = function(passport) {
               name: profile.displayName
             , email: profile.emails[0].value
             , username: profile.username
-            , provider: 'facebook'
             , facebook: profile._json
-          })
-          user.save(function (err) {
-            if (err) console.log(err)
-            return done(err, user)
-          })
-        }
-        else {
-          return done(err, user)
-        }
-      })
-    }
-    ));
-
-    passport.use(new TwitterStrategy({
-        consumerKey: config.twitter.clientID,
-        consumerSecret: config.twitter.clientSecret,
-        callbackURL: '/auth/twitter/callback'
-    }, 
-    function(token, tokenSecret, profile, done) {
-      User.findOne({ 'twitter.id': profile.id }, function (err, user) {
-        if (err) { return done(err) }
-        if (!user) {
-          user = new User({
-              name: profile.displayName
-            , username: profile.username
-            , provider: 'twitter'
-            , twitter: profile._json
           })
           user.save(function (err) {
             if (err) console.log(err)

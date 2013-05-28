@@ -7,11 +7,6 @@ module.exports.setRoutes = function(app, passport) {
         successRedirect: '/#/main',
         failureRedirect: '/#/login' }));
 
-    app.get('/auth/twitter', passport.authenticate('twitter'));
-    app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-        successRedirect: '/#/main',
-        failureRedirect: '/#/login' }));
-
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/#/login');

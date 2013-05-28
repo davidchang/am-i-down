@@ -16,7 +16,6 @@
     "less-middleware": "0.1.9",
     "passport": "0.1.15",
     "passport-facebook": "0.1.5",
-    "passport-twitter": "0.1.4",
     "mongoose": "3.6.11"
   },
   "engines": {
