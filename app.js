@@ -15,8 +15,6 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.session({ secret: 'keyboard cat' }));
-  //app.use(express.static(path.join(__dirname, 'public/dist')));
-  app.use(express.static(path.join(__dirname, 'public/app')));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
@@ -24,6 +22,12 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+  app.use(express.static(path.join(__dirname, 'public/app')));
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler());
+  app.use(express.static(path.join(__dirname, 'public/dist')));
 });
 
 require('./routes').setRoutes(app, passport);
