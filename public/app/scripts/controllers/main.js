@@ -18,9 +18,7 @@ angular.module('publicApp')
         $scope.lists = [];
       }
 
-      $scope.newList = {
-        useDesiredAsDefault : true
-      };
+      $scope.newList = {};
 
       $scope.createNewList = function() {
         var toAdd = $scope.newList;

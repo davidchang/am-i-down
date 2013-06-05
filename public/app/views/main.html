@@ -8,7 +8,7 @@
     </div>
 
     <div ng-show='showStatusForToday($index)'>
-        How did you to today?
+        How did you do today?
           <button ng-click='statusChange($index, true)'>{{listObj.desiredOutcome}}</button>
           <button ng-click='statusChange($index, false)'>{{listObj.oppositeOutcome}}</button>
     </div>
@@ -56,9 +56,6 @@
     </div>
     <div class='control-group'>
       <div class='controls'>
-        <label class='checkbox marginBottomFive'>
-          <input type='checkbox' ng-model='newList.useDesiredAsDefault'>Use Desired Outcome as Default</input>
-        </label>
         <button ng-click='createNewList()'>Add</button>
       </div>
     </div>

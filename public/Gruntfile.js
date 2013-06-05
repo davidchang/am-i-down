@@ -45,7 +45,7 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 9000,
+        port: 3000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
@@ -185,8 +185,7 @@ module.exports = function (grunt) {
       expressapp: {
         files: {
           '<%= yeoman.app %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css',
+            '.tmp/styles/{,*/}*.css'
           ]
         }
       }
