@@ -1,0 +1,30 @@
+<div>
+  <div>
+      <h2>{{listObj.name}}</h2>
+  </div>
+
+  <div ng-show='showStatusForToday(index)'>
+      How did you do today?
+        <button ng-click='statusChange(index, true)'>{{listObj.desiredOutcome}}</button>
+        <button ng-click='statusChange(index, false)'>{{listObj.oppositeOutcome}}</button>
+  </div>
+  <div ng-hide='showStatusForToday(index)'>
+    <div>
+      <span ng-show='getStatusForToday(index)'>High five!</span><span ng-hide='getStatusForToday(index)'>:/ Thanks for your honesty</span><a ng-click='undoToday(index)' class='undoLink'>Undo</a>
+      </div>
+  </div>
+  <!--<heatmap id='{{$index}}' data='listObj.days'></heatmap>-->
+  <a class='block' ng-click='listObj.showBackfill = !listObj.showBackfill'>Backfill data</a>
+  <div ng-show='listObj.showBackfill'>
+      <input ng-model='listObj.backfillDate' placeholder='mm/dd/yyyy'/>
+      <button ng-click='statusChange(index, false, true)'>{{listObj.desiredOutcome}}</button>
+      <button ng-click='statusChange(index, true, true)'>{{listObj.oppositeOutcome}}</button>
+  </div>
+
+  <a class='block' ng-click='listObj.showHistory = !listObj.showHistory'>Bad Days</a>
+  <div ng-show='listObj.showHistory'>
+      <div ng-hide='day.good' ng-repeat='day in listObj.days'>
+          {{day.dayTime | date:'MM/dd/yyyy'}}
+      </div>
+  </div>
+</div>
