@@ -6,31 +6,4 @@
     <metric data='listObj' index='{{$index}}'></metric>
 </div>
 
-<div id='newListDiv'>
-  <h2>Add New List:</h2>
-  <form class='form-horizontal' name='newListForm'>
-    <div class='control-group'>
-      <label class='control-label' for='newName'>List Name:</label>
-      <div class='controls'>
-        <input id='newName' type='text' ng-model='newList.name' placeholder='Ex: Porn' required/>
-      </div>
-    </div>
-    <div class='control-group'>
-      <label class='control-label' for='desiredOutcome'>Desired Outcome:</label>
-      <div class='controls'>
-        <input id='desiredOutcome' type='text' ng-model='newList.desiredOutcome' placeholder="Ex: Didn't look at porn" required/>
-      </div>
-    </div>
-    <div class='control-group marginBottomFive'>
-      <label class='control-label' for='oppositeOutcome'>Opposite Outcome:</label>
-      <div class='controls'>
-        <input id='oppositeOutcome' type='text' ng-model='newList.oppositeOutcome' placeholder='Ex: Looked at porn' required/>
-      </div>
-    </div>
-    <div class='control-group'>
-      <div class='controls'>
-        <button ng-click='createNewList()'>Add</button>
-      </div>
-    </div>
-  </form>
-</div>
+<new-metric-form lists='lists'></new-metric-form>

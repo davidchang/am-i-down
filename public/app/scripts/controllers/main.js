@@ -18,23 +18,6 @@ angular.module('publicApp')
         $scope.lists = [];
       }
 
-      $scope.newList = {};
-
-      $scope.createNewList = function() {
-        var toAdd = $scope.newList;
-        toAdd.days = [];
-        toAdd.startDate = new Date();
-        toAdd.public = false;
-
-        $scope.lists.push(toAdd);
-        save();
-
-        /*$scope.newListForm.$setPristine();
-        $scope.newList = {
-          useDesiredAsDefault : true
-        };*/
-      };
-
       function save() {
         REST.saveLists($scope.lists);
       }
