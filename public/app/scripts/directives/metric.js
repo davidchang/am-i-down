@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('publicApp')
-  .directive('metric', ['REST', function (REST) {
+  .directive('metric', ['$rootScope', function ($rootScope) {
     return {
-      templateUrl: 'partials/listObj.html',
+      templateUrl: 'partials/metric.html',
       restrict: 'E',
       scope: { data: '=', index: '@' },
       link: function postLink($scope, element, attrs) {
@@ -26,7 +26,7 @@ angular.module('publicApp')
         }
 
         function save() {
-          console.log($scope.data);
+          $rootScope.$broadcast('saveListData');
         }
 
         $scope.showStatusForToday = function(i) {
@@ -65,6 +65,7 @@ angular.module('publicApp')
 
             return day ? day.good : false;
         };
+
         $scope.undoToday = function(i) {
             var truncatedToday = truncatedDay();
             var day = _.find($scope.data.days, function(day) {

@@ -38,4 +38,8 @@ angular.module('publicApp')
       function save() {
         REST.saveLists($scope.lists);
       }
+
+      $scope.$on('saveListData', function() {
+        save();
+      });
   }]);
