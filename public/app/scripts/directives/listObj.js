@@ -26,7 +26,7 @@ angular.module('publicApp')
         }
 
         function save() {
-          REST.saveLists($scope.lists);
+          console.log($scope.data);
         }
 
         $scope.showStatusForToday = function(i) {

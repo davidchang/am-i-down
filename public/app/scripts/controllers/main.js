@@ -34,4 +34,8 @@ angular.module('publicApp')
           useDesiredAsDefault : true
         };*/
       };
+
+      function save() {
+        REST.saveLists($scope.lists);
+      }
   }]);
