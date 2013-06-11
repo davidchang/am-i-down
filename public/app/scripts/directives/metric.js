@@ -37,13 +37,7 @@ angular.module('publicApp')
         };
 
         $scope.statusChange = function(isGood, dateToUse) {
-            var validDate = isValidDate($scope.data.backfillDate);
-            if(dateToUse && !validDate) {
-              console.log('error');
-              return;
-            }
-
-            var time = dateToUse ? validDate : new Date();
+            var time = dateToUse || new Date();
             var truncatedBackfillDay = truncatedDay(time);
             var day = _.find($scope.data.days, function(day) {
                 return day.dayTime == truncatedBackfillDay;
@@ -54,7 +48,6 @@ angular.module('publicApp')
               $scope.data.days.push({ realTime: time, dayTime: truncatedBackfillDay, good: isGood});
 
             save();
-            $scope.data.backfillDate = '';
         }
 
         $scope.getStatusForToday = function(i) {

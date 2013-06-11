@@ -13,18 +13,5 @@
       <span ng-show='getStatusForToday(index)'>High five!</span><span ng-hide='getStatusForToday(index)'>:/ Thanks for your honesty</span><a ng-click='undoToday(index)' class='undoLink'>Undo</a>
       </div>
   </div>
-  <!--<heatmap id='{{$index}}' data='data.days'></heatmap>-->
-  <a class='block' ng-click='data.showBackfill = !data.showBackfill'>Backfill data</a>
-  <div ng-show='data.showBackfill'>
-      <input ng-model='data.backfillDate' placeholder='mm/dd/yyyy'/>
-      <button ng-click='statusChange(false, true)'>{{data.desiredOutcome}}</button>
-      <button ng-click='statusChange(true, true)'>{{data.oppositeOutcome}}</button>
-  </div>
-
-  <a class='block' ng-click='data.showHistory = !data.showHistory'>Bad Days</a>
-  <div ng-show='data.showHistory'>
-      <div ng-hide='day.good' ng-repeat='day in data.days'>
-          {{day.dayTime | date:'MM/dd/yyyy'}}
-      </div>
-  </div>
+  <heatmap index='{{index}}' data='data.days'></heatmap>
 </div>
