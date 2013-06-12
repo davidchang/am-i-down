@@ -1,14 +1,20 @@
 'use strict';
 
 angular.module('publicApp')
-  .directive('heatmap', function () {
+  .directive('heatmap', ['$rootScope', function ($rootScope) {
     return {
       template: '<div id="mymap{{index}}"></div>',
       restrict: 'E',
       scope: { index: '@', data: '=' },
       link: function postLink(scope, element, attrs) {
+        function save() {
+          $rootScope.$broadcast('saveListData');
+        }
+
         setTimeout(function() {
           var id = '#mymap' + scope.index;
+
+          console.log(scope.data);
 
           d3.select(id).append("svg")
             .attr("class", "graph");
@@ -17,10 +23,13 @@ angular.module('publicApp')
           var h = function(d) { return 130; };
           
           var domainsWidth = [], width = 0;
-          
-          var positionX = function(i) {
-            return width === 0 ? domainsWidth[i] : domainsWidth[i+1];
-          };
+          var positionX = function(i) { return width === 0 ? domainsWidth[i] : domainsWidth[i+1]; };
+
+          var nextClassDictionary = {
+            'neutral' : 'green',
+            'green' : 'red',
+            'red' : 'neutral'
+          }
           
           //one year ago
           var d = new Date();
@@ -103,14 +112,41 @@ angular.module('publicApp')
           var rect = domainSvg.selectAll("rect")
             .data(function(d) { return getDayDomain(d); })
             .enter().append("svg:rect")
-            .attr("class", "graph-rect")
-            .attr("class", "neutral")
+            .attr("class", function(d) {
+              var dayMatch = _.findWhere(scope.data, { dayTime : d.valueOf() });
+              if(dayMatch == null) return 'neutral';
+              return dayMatch.good ? 'green' : 'red';
+            })
             .attr("width", 10)
             .attr("height", 10)
             .attr("x", function(d) { return 1; })
             .attr("y", function(d, i) { return i * 15 + 1; })
-            .on('click', function() {
-              d3.select(this).attr('class', 'green');
+            .on('click', function(d) {
+              var $this = d3.select(this);
+              var curClass = $this[0][0].classList[0];
+              $this.attr('class', nextClassDictionary[curClass]);
+
+              if(nextClassDictionary[curClass] == 'neutral') {
+                //remove the entry
+                scope.$apply(function() {
+                  scope.data = _.reject(scope.data, function(day) {
+                    return day.dayTime == d.valueOf();
+                  });
+                });
+              }
+              else if(nextClassDictionary[curClass] == 'green') {
+                //add a true entry
+                scope.data.push({
+                  dayTime: d.valueOf(),
+                  good: true
+                });
+              }
+              else {
+                //make the entry false
+                _.findWhere(scope.data, { dayTime: d.valueOf() }).good = false;
+              }
+
+              save();
             });
             ;
      
@@ -119,4 +155,4 @@ angular.module('publicApp')
         });
       }
     };
-  });
+  }]);

@@ -19,6 +19,9 @@ angular.module('publicApp')
       }
 
       function save() {
+        console.log('saving');
+        console.log($scope.lists);
+
         REST.saveLists($scope.lists);
       }
 
