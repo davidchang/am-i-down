@@ -168,7 +168,7 @@ angular.module('publicApp')
           }
 
           scope.$watch('data', function(oldValue, newValue) {
-            repaint(newValue);
+            repaint(oldValue);
           }, true);
         });
 
