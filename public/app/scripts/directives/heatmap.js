@@ -152,7 +152,26 @@ angular.module('publicApp')
      
           // Appeding a title to each subdomain
           rect.append("svg:title").text(function(d){ return d3.time.format('%x')(d); });
+
+          function repaint(newValue) {
+            var domainSvg = d3.select('#mymap' + scope.index + ' .graph')
+              .selectAll("svg")
+              ;
+
+            var rect = domainSvg.selectAll("rect")
+              .attr("class", function(d) {
+                var dayMatch = _.findWhere(newValue, { dayTime : d.valueOf() });
+                if(dayMatch == null) return 'neutral';
+                return dayMatch.good ? 'green' : 'red';
+              })
+              ;
+          }
+
+          scope.$watch('data', function(oldValue, newValue) {
+            repaint(newValue);
+          }, true);
         });
+
       }
     };
   }]);
