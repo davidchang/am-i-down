@@ -11,10 +11,12 @@ angular.module('publicApp')
           $rootScope.$broadcast('saveListData');
         }
 
+        var today = new Date();
+        var oneYearAgo = new Date();
+        oneYearAgo.setFullYear(today.getFullYear() - 1);
+
         setTimeout(function() {
           var id = '#mymap' + scope.index;
-
-          console.log(scope.data);
 
           d3.select(id).append("svg")
             .attr("class", "graph");
@@ -32,9 +34,7 @@ angular.module('publicApp')
           }
           
           //one year ago
-          var d = new Date();
-          d.setFullYear(d.getFullYear() - 1);
-     
+          var d = oneYearAgo;
           var weekStart;
           
           if (d.getDay() === 1) {
@@ -107,14 +107,14 @@ angular.module('publicApp')
      
             return d3.time.days(Math.min(start, stop), Math.max(start, stop));
           }
-          
+
           // Drawing the sudomain inside each domain
           var rect = domainSvg.selectAll("rect")
             .data(function(d) { return getDayDomain(d); })
             .enter().append("svg:rect")
             .attr("class", function(d) {
               var dayMatch = _.findWhere(scope.data, { dayTime : d.valueOf() });
-              if(dayMatch == null) return 'neutral';
+              if(dayMatch == null) return (d.valueOf() <= today && d.valueOf() > oneYearAgo) ? 'neutral' : 'hidden';
               return dayMatch.good ? 'green' : 'red';
             })
             .attr("width", 10)
@@ -161,7 +161,7 @@ angular.module('publicApp')
             var rect = domainSvg.selectAll("rect")
               .attr("class", function(d) {
                 var dayMatch = _.findWhere(newValue, { dayTime : d.valueOf() });
-                if(dayMatch == null) return 'neutral';
+                if(dayMatch == null) return (d.valueOf() <= today && d.valueOf() > oneYearAgo) ? 'neutral' : 'hidden';
                 return dayMatch.good ? 'green' : 'red';
               })
               ;
