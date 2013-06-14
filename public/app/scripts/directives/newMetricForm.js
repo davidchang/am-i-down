@@ -12,6 +12,7 @@ angular.module('publicApp')
         $scope.suggestions = [
           { name: 'Porn', desiredOutcome: 'Didn\'t look at porn', oppositeOutcome: 'Looked at porn' },
           { name: 'Fights', desiredOutcome: 'Didn\'t fight with my wife', oppositeOutcome: 'Fought with my wife' },
+          { name: 'Imgur', desiredOutcome: 'Didn\'t go on Imgur', oppositeOutcome: 'Went on Imgur' },
           { name: 'Reddit', desiredOutcome: 'Didn\'t go on Reddit', oppositeOutcome: 'Went on Reddit' },
           { name: 'Digg', desiredOutcome: 'Didn\'t go on Digg', oppositeOutcome: 'Went on Digg' },
           { name: 'Programming', desiredOutcome: 'Programmed recreationally', oppositeOutcome: 'Didn\'t program recreationally' },
