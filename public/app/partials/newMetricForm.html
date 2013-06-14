@@ -1,5 +1,11 @@
 <div id='newListDiv'>
   <h2>Add New List:</h2>
+  <div>
+    Suggesed lists:
+    <span class='suggestion' ng-repeat='suggestion in suggestions'>
+      <a ng-click='changeToNewList(suggestion)'>{{suggestion.name}}</a>
+    </span>
+  </div>
   <form class='form-horizontal' name='newListForm'>
     <div class='control-group'>
       <label class='control-label' for='newName'>List Name:</label>

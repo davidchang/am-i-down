@@ -13,6 +13,15 @@
     display: block;
 }
 
+#newListDiv {
+  .suggestion {
+    padding-left: 10px;
+  }
+  form {
+    margin-top: 15px;
+  }
+}
+
 /* Cal-HeatMap CSS */
 .graph
 {
