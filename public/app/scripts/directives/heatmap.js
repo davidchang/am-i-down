@@ -37,14 +37,8 @@ angular.module('publicApp')
           var d = oneYearAgo;
           var weekStart;
           
-          if (d.getDay() === 1) {
-            weekStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-          } else if (d.getDay() === 0) {
-            weekStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-            weekStart.setDate(weekStart.getDate() - 6);
-          } else {
-            weekStart = new Date(d.getFullYear(), d.getMonth(), d.getDate()-d.getDay()+1);
-          }
+          weekStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+          weekStart.setDate(weekStart.getDate() + 7);
           
           var endDate = new Date(weekStart);
           var stop = new Date(endDate.setDate(endDate.getDate() + 52 * 7));
