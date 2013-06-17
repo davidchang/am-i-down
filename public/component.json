@@ -9,7 +9,8 @@
     "angular-cookies": "~1.0.5",
     "angular-sanitize": "~1.0.5",
     "angular-local-storage": "*",
-    "d3": "*"
+    "d3": "*",
+    "underscore": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",
