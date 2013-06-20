@@ -6,7 +6,7 @@
       <a ng-click='changeToNewList(suggestion)'>{{suggestion.name}}</a>
     </span>
   </div>
-  <form class='form-horizontal' name='newListForm'>
+  <form class='form-horizontal' name='newList'>
     <div class='control-group'>
       <label class='control-label' for='newName'>List Name:</label>
       <div class='controls'>
@@ -27,7 +27,7 @@
     </div>
     <div class='control-group'>
       <div class='controls'>
-        <button ng-click='createNewList()'>Add</button>
+        <button ng-click='createNewList(newList)'>Add</button>
       </div>
     </div>
   </form>

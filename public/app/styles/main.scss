@@ -36,8 +36,14 @@ header {
 }
 
 #newListDiv {
+  padding-top: 25px;
+  padding-bottom: 30px;
   .suggestion {
     padding-left: 10px;
+
+    a {
+      cursor: pointer;
+    }
   }
   form {
     margin-top: 15px;

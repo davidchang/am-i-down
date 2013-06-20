@@ -28,20 +28,23 @@ angular.module('publicApp')
           $rootScope.$broadcast('saveListData');
         }
 
-        $scope.createNewList = function() {
+        $scope.createNewList = function(newList) {
 
-          var toAdd = $scope.newList;
-          toAdd.days = [];
-          toAdd.startDate = new Date();
-          toAdd.public = false;
+          if(newList && newList.name && newList.desiredOutcome && newList.oppositeOutcome && newList.name.length && newList.desiredOutcome.length && newList.oppositeOutcome.length) {
+            var toAdd = angular.copy(newList);
+            toAdd.days = [];
+            toAdd.startDate = new Date();
+            toAdd.public = false;
 
-          $scope.lists.push(toAdd);
-          save();
+            $scope.lists.push(toAdd);
+            save();
 
-          /*$scope.newListForm.$setPristine();
-          $scope.newList = {
-            useDesiredAsDefault : true
-          };*/
+            //$scope.newList.$setPristine();
+            $scope.newList.name = '';
+            $scope.newList.desiredOutcome = '';
+            $scope.newList.oppositeOutcome = '';
+          }
+
         };
 
       }
