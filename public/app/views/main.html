@@ -1,6 +1,15 @@
-<div>
-  <a href='logout'>Log out</a>
-</div>
+<header>
+  <h1>
+    Am I Down?
+  </h1>
+  <h3>
+    Insights into behavioral trends
+  </h3>
+
+  <div>
+    <a class='loginLink' href='logout'>Log out</a>
+  </div>
+</header>
 
 <div class='listObj' ng-repeat="listObj in lists">
     <metric data='listObj' index='{{$index}}'></metric>

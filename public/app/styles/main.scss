@@ -1,5 +1,23 @@
 @import "compass_twitter_bootstrap";
 
+body {
+  font-family: 'Roboto', serif;
+}
+
+header {
+  color: #2C3E50;
+
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  h3 {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+  }
+}
+
 .listObj {
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -7,6 +25,10 @@
     .undoLink {
         margin-left: 10px;
     }
+}
+
+.loginLink {
+  font-size: 1.5em;
 }
 
 .block {
