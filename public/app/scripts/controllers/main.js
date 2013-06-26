@@ -28,4 +28,11 @@ angular.module('publicApp')
       $scope.$on('saveListData', function() {
         save();
       });
+
+      $scope.lastWeek = [1, 2, 3, 4, 5];
+
+      $scope.changeStatus = function(listObj, index) {
+        console.log(listObj);
+        console.log(index);
+      }
   }]);

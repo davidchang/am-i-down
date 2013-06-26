@@ -1,0 +1,9 @@
+<div class='listObj' ng-repeat="listObj in lists">
+  <div id='list{{$index}}'>
+    <div>
+        <h2>{{listObj.name}}</h2>
+    </div>
+
+    <heatmap index='{{$index}}' data='listObj.days'></heatmap>
+  </div>
+</div>

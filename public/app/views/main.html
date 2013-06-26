@@ -11,8 +11,16 @@
   </div>
 </header>
 
-<div class='listObj' ng-repeat="listObj in lists">
-    <metric data='listObj' index='{{$index}}'></metric>
-</div>
 
-<new-metric-form lists='lists'></new-metric-form>
+<div class='listObj row-fluid' ng-repeat="listObj in lists">
+  <div class='span6'>
+    <h2>{{listObj.name}}</h2>
+  </div>
+  <div class='span6'>
+    <div id='boxes{{$index}}'>
+      <div class='box' ng-click='changeStatus(listObj, $index)' ng-repeat='day in listObj.lastWeek'>
+        {{day}}
+      </div>
+    </div>
+  </div>
+</div>

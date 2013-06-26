@@ -86,3 +86,29 @@ header {
   stroke-width: 1px;
   cursor: pointer;
 }
+
+.box {
+  background-color: #95a5a6;
+  color: #ecf0f1;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline;
+  padding: 3px 7px;
+  margin-right: 10px;
+  
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.box.green {
+  background-color: #27ae60;
+}
+.box.red {
+  background-color: #c0392b;
+}

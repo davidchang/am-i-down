@@ -16,6 +16,10 @@ angular.module('publicApp', ['LocalStorageModule'])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/detailed', {
+        templateUrl: 'views/detailed.html',
+        controller: 'DetailedCtrl'
+      })
       .otherwise({
         redirectTo: '/login'
       });
