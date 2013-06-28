@@ -62,4 +62,10 @@ angular.module('publicApp')
       $scope.getClass = function(listObj, date) {
         return 'box ' + getClassColor(listObj, date);
       }
+
+      $scope.newMetricSubmit = function($event) {
+        console.log($event);
+        $event.preventDefault();
+        $event.target.blur();
+      }
   }]);

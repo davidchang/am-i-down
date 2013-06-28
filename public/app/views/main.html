@@ -11,16 +11,30 @@
   </div>
 </header>
 
+<h2>Your Metrics</h2>
 
 <div class='listObj row-fluid' ng-repeat="listObj in lists">
   <div class='span4'>
-    <h2>{{listObj.name}}</h2>
+    <h3>{{listObj.name}}</h3>
   </div>
   <div class='span6 boxHolder'>
     <div id='boxes{{$index}}'>
-      <div ng-class='getClass(listObj, date)' ng-click='changeStatus(listObj, date)' ng-repeat='day in lastWeek'>
+      <span ng-class='getClass(listObj, day)' ng-click='changeStatus(listObj, day)' ng-repeat='day in lastWeek'>
         {{day.date}}
-      </div>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class='row-fluid'>
+  <div class='span4'>
+    <input id='newMetricTextbox' type='text' ng-model='newMetric' placeholder='Add New Metric' ui-keypress="{13:'newMetricSubmit($event)'" />
+  </div>
+  <div class='span6 boxHolder'>
+    <div id='boxes{{$index}}'>
+      <span class='box inactive' ng-repeat='day in lastWeek'>
+        {{day.date}}
+      </span>
     </div>
   </div>
 </div>

@@ -27,9 +27,6 @@ header {
     .undoLink {
         margin-left: 10px;
     }
-    &:last-child {
-      border-bottom: 0px solid #CCC;
-    }
 }
 
 .loginLink {
@@ -93,7 +90,7 @@ header {
 }
 
 .boxHolder {
-  margin-top: 18px;
+  margin-top: 21px;
 }
 
 .box {
@@ -101,12 +98,11 @@ header {
   color: #ecf0f1;
   width: 15px;
   height: 15px;
-  text-align: center;
+ /* text-align: center;
   vertical-align: middle;
-  line-height: 15px;
+  line-height: 15px;*/
   font-size: 2em;
   cursor: pointer;
-  display: inline;
   padding: 3px 7px;
   margin-right: 10px;
   
@@ -119,4 +115,13 @@ header {
 }
 .box.red {
   background-color: #c0392b;
+}
+.box.inactive {
+  cursor: default;
+  opacity: 0.4;
+}
+#newMetricTextbox {
+  margin-top: 12px;
+  font-size: 1.5em;
+  padding: 10px 5px 4px;
 }
