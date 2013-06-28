@@ -13,13 +13,13 @@
 
 
 <div class='listObj row-fluid' ng-repeat="listObj in lists">
-  <div class='span6'>
+  <div class='span4'>
     <h2>{{listObj.name}}</h2>
   </div>
   <div class='span6'>
     <div id='boxes{{$index}}'>
-      <div class='box' ng-click='changeStatus(listObj, $index)' ng-repeat='day in listObj.lastWeek'>
-        {{day}}
+      <div class='box' ng-click='changeStatus(listObj, $index)' ng-repeat='date in lastWeek'>
+        {{date}}
       </div>
     </div>
   </div>
