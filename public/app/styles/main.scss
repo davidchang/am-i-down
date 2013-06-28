@@ -23,10 +23,10 @@ header {
 }
 
 .listObj {
-    border-bottom: 1px solid #CCC;
-    .undoLink {
-        margin-left: 10px;
-    }
+  border-bottom: 1px solid #CCC;
+  h3 {
+    float: left;
+  }
 }
 
 .loginLink {
@@ -120,8 +120,26 @@ header {
   cursor: default;
   opacity: 0.4;
 }
+.box.selected {
+  background-color: #3498db;
+}
 #newMetricTextbox {
   margin-top: 12px;
   font-size: 1.5em;
   padding: 10px 5px 4px;
+}
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100px;
+
+  margin-top: 15px;
+}
+.metricBtn {
+  margin-right: 10px;
+  margin-top: 10px;
 }

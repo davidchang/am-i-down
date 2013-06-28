@@ -33,7 +33,7 @@ angular.module('publicApp')
       var d = new Date();
       d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7);
       for(var i = 0; i < 7; ++i && d.setDate(d.getDate() + 1)) {
-        $scope.lastWeek.push( { date: d.getDate(), timestamp : d.valueOf() } );
+        $scope.lastWeek.push( { date: d.getDate(), timestamp : d.valueOf(), selectedForNote: i == 6 } );
       }
 
       $scope.changeStatus = function(listObj, date) {
@@ -66,6 +66,11 @@ angular.module('publicApp')
       $scope.newMetricSubmit = function($event) {
         var newMetric = $scope.newMetric;
         if(newMetric.length) {
+
+          if(_.findWhere($scope.lists, {name: newMetric})) {
+            alert('List names must be unique');
+            return;
+          }
           
           $scope.lists.push({ name: newMetric, public: false, startDate: new Date() });
           save();
@@ -74,5 +79,41 @@ angular.module('publicApp')
           $event.target.blur();
           $scope.newMetric = '';
         }
+      }
+
+      $scope.selectedDay = _.last($scope.lastWeek);
+      $scope.changeSelectedDay = function(day) {
+        $scope.selectedDay = day;
+      }
+
+      $scope.metricChosen = undefined;
+      $scope.setMetricChosen = function(listObj) {
+        $scope.metricChosen = listObj;
+      }
+
+      $scope.saveNote = function() {
+        if($scope.noteTextarea.length == 0)
+          return;
+
+        var listObj = _.findWhere($scope.lists, {name: $scope.metricChosen.name});
+        var noteObj = _.findWhere(listObj.notes, {dayTime: $scope.selectedDay.timestamp});
+        if(noteObj) {
+          noteObj.realTime = new Date();
+          noteObj.text = $scope.noteTextarea;
+        }
+        else
+          listObj.notes.push({ realTime: new Date(), dayTime: $scope.selectedDay.timestamp, text: $scope.noteTextarea });
+
+        $scope.metricChosen = undefined;
+        $scope.noteTextarea = '';
+    
+        save();
+      }
+
+      $scope.getNotesForSelectedDay = function() {
+        return _.compact(_.map($scope.lists, function(listObj) {
+          var noteObj = _.findWhere(listObj.notes, {dayTime: $scope.selectedDay.timestamp});
+          return !noteObj ? undefined : { name: listObj.name, note: noteObj.text };
+        }));;
       }
   }]);

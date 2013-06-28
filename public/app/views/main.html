@@ -11,11 +11,13 @@
   </div>
 </header>
 
-<h2>Your Metrics</h2>
+<h2>Your Metrics:</h2>
 
 <div class='listObj row-fluid' ng-repeat="listObj in lists">
-  <div class='span4'>
+  <div class='span6'>
     <h3>{{listObj.name}}</h3>
+    <i class='icon-edit'></i>
+    <i class='icon-trash'></i>
   </div>
   <div class='span6 boxHolder'>
     <div id='boxes{{$index}}'>
@@ -27,7 +29,7 @@
 </div>
 
 <div class='row-fluid'>
-  <div class='span4'>
+  <div class='span6'>
     <input id='newMetricTextbox' type='text' ng-model='newMetric' placeholder='Add New Metric' ui-keypress="{13:'newMetricSubmit($event)'}" />
   </div>
   <div class='span6 boxHolder'>
@@ -36,5 +38,47 @@
         {{day.date}}
       </span>
     </div>
+  </div>
+</div>
+
+<h2>Your Notes:</h2>
+
+<div class='row-fluid'>
+  <div class='span6'>
+    <h3>Select Day:</h3>
+  </div>
+  <div class='span6 boxHolder'>
+    <span ng-class='{"box": true, "selected": day == selectedDay}' ng-click='changeSelectedDay(day)' ng-repeat='day in lastWeek'>
+      {{day.date}}
+    </span>
+  </div>
+</div>
+<div class='row-fluid'>
+  <div class='span6'>
+    <h3>Select Metric:</h3>
+  </div>
+  <div class='span6'>
+    <span class='metricBtn btn' ng-click='setMetricChosen(listObj)' ng-repeat='listObj in lists'>
+      {{listObj.name}}
+    </span>
+  </div>
+</div>
+
+<div class='row-fluid' ng-show='metricChosen'>
+  <div class='span12'>
+    <textarea ng-model='noteTextarea' placeholder='Your note on: {{metricChosen.name}}'></textarea>
+    <div class='pull-right'>
+      <button class='btn btn-primary' ng-click='saveNote()'>Save Note</button>
+    </div>
+  </div>
+</div>
+
+<h3 ng-show='getNotesForSelectedDay()'>Notes already taken on {{selectedDay.date}}:</h3>
+<div class='row-fluid' ng-repeat='noteForDay in getNotesForSelectedDay()'>
+  <div class='span6'>
+    {{noteForDay.name}}
+  </div>
+  <div class='span6'>
+    <textarea>{{noteForDay.note}}</textarea>
   </div>
 </div>
