@@ -29,10 +29,12 @@ var listSchema = mongoose.Schema({
                 dayTime: Number,
                 good: Boolean   
             }],
-            public: { type: Boolean, default: false },
-            desiredOutcome: String,
-            oppositeOutcome: String,
-            useDesiredAsDefault: { type: Boolean, default: true }
+            notes: [{
+                realTime: Number,
+                dayTime: Number,
+                text: String
+            }],
+            public: { type: Boolean, default: false }
         }
     ],
     userId: String

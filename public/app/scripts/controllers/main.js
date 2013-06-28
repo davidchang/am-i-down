@@ -64,8 +64,15 @@ angular.module('publicApp')
       }
 
       $scope.newMetricSubmit = function($event) {
-        console.log($event);
-        $event.preventDefault();
-        $event.target.blur();
+        var newMetric = $scope.newMetric;
+        if(newMetric.length) {
+          
+          $scope.lists.push({ name: newMetric, public: false, startDate: new Date() });
+          save();
+
+          $event.preventDefault();
+          $event.target.blur();
+          $scope.newMetric = '';
+        }
       }
   }]);
