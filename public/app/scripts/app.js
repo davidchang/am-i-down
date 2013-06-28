@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', ['LocalStorageModule'])
+angular.module('publicApp', ['LocalStorageModule', 'ui.keypress'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/login', {

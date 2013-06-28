@@ -10,7 +10,8 @@
     "angular-sanitize": "~1.0.5",
     "angular-local-storage": "*",
     "d3": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "angular-ui-utils": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.5",
