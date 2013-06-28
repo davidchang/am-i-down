@@ -18,8 +18,8 @@
   </div>
   <div class='span6'>
     <div id='boxes{{$index}}'>
-      <div class='box' ng-click='changeStatus(listObj, $index)' ng-repeat='date in lastWeek'>
-        {{date}}
+      <div ng-class='getClass(listObj, date)' ng-click='changeStatus(listObj, date)' ng-repeat='date in lastWeek'>
+        {{date.date}}
       </div>
     </div>
   </div>
