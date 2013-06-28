@@ -4,11 +4,15 @@ body {
   font-family: 'Roboto', serif;
 }
 
+#mainContainer {
+  margin-bottom: 50px;
+}
+
 header {
   color: #2C3E50;
 
   border-bottom: 1px solid #CCC;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-bottom: 20px;
 
   h3 {
@@ -19,11 +23,12 @@ header {
 }
 
 .listObj {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
     border-bottom: 1px solid #CCC;
     .undoLink {
         margin-left: 10px;
+    }
+    &:last-child {
+      border-bottom: 0px solid #CCC;
     }
 }
 
@@ -87,6 +92,10 @@ header {
   cursor: pointer;
 }
 
+.boxHolder {
+  margin-top: 18px;
+}
+
 .box {
   background-color: #95a5a6;
   color: #ecf0f1;
@@ -96,7 +105,6 @@ header {
   vertical-align: middle;
   line-height: 15px;
   font-size: 2em;
-  font-weight: bold;
   cursor: pointer;
   display: inline;
   padding: 3px 7px;
