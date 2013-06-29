@@ -12,21 +12,20 @@ header {
   color: #2C3E50;
 
   border-bottom: 1px solid #CCC;
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-
+  margin-bottom: 15px;
+  h1 {
+    margin-bottom: -10px;
+  }
   h3 {
-    border-bottom: 1px solid #CCC;
-    margin-bottom: 20px;
-    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  #links {
+    margin-top: 20px;
   }
 }
 
 .listObj {
   border-bottom: 1px solid #CCC;
-  h3 {
-    float: left;
-  }
 }
 
 .loginLink {
@@ -68,29 +67,35 @@ header {
 .hidden {
   display: none;
 }
-.neutral {
-  background-color: #eee;
-  fill: #eee;
-  shape-rendering: crispedges;
-}
-.green
-{
-  background-color: #00A550;
-  fill: #00A550;
-}
-.red {
-  background-color: #ED1C24;
-  fill: #ED1C24;
-}
-.neutral:hover, .green:hover, .red:hover
-{
-  stroke: #000;
-  stroke-width: 1px;
-  cursor: pointer;
+svg {
+  .neutral {
+    background-color: #eee;
+    fill: #eee;
+    shape-rendering: crispedges;
+  }
+  .green
+  {
+    background-color: #00A550;
+    fill: #00A550;
+  }
+  .red {
+    background-color: #ED1C24;
+    fill: #ED1C24;
+  }
+  .neutral:hover, .green:hover, .red:hover
+  {
+    stroke: #000;
+    stroke-width: 1px;
+    cursor: pointer;
+  }
 }
 
 .boxHolder {
   margin-top: 21px;
+
+  .box:last-child {
+    padding-right: 7px;
+  }
 }
 
 .box {
@@ -98,12 +103,12 @@ header {
   color: #ecf0f1;
   width: 15px;
   height: 15px;
- /* text-align: center;
+  text-align: center;
   vertical-align: middle;
-  line-height: 15px;*/
+  line-height: 15px;
   font-size: 2em;
   cursor: pointer;
-  padding: 3px 7px;
+  padding: 3px 2px 3px 7px;
   margin-right: 10px;
   
   -moz-user-select: none;
@@ -129,6 +134,18 @@ header {
   padding: 10px 5px 4px;
 }
 
+#newNoteDiv {
+  textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 100px;
+
+    margin-top: 15px;
+  }
+}
 textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -136,10 +153,32 @@ textarea {
 
   width: 100%;
   height: 100px;
-
-  margin-top: 15px;
 }
-.metricBtn {
-  margin-right: 10px;
+
+#notesHeader {
+  margin-top: 50px;
+}
+
+#metricBtnHolder {
+  text-align: right;
+  .metricBtn {
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+}
+
+.noteAlreadyTaken {
   margin-top: 10px;
+  border-bottom: 1px solid #CCC;
+
+  &:last-child {
+    border-bottom: 0px solid #CCC;
+  }
+
+  h3 {
+    margin-top: 0px;
+  }
+  button { 
+    margin-bottom: 10px;
+  }
 }

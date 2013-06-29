@@ -2,6 +2,8 @@
 
 angular.module('publicApp')
   .controller('MainCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
+      var emptyArray = [];
+
       Auth.isLoggedIn().then(function(loggedIn) {
         if(!loggedIn)
           $location.path( '/login' );
@@ -13,9 +15,27 @@ angular.module('publicApp')
             $scope.lists = [];
           else
             $scope.lists = res.data.lists;
+          convertListsToNotes();
         });
       } catch(err) {
         $scope.lists = [];
+        $scope.notes = {};
+      }
+
+      function convertListsToNotes() {
+        $scope.notes = {};
+        for(var i = 0; i < $scope.lists.length; ++i) {
+          var list = $scope.lists[i];
+          for(var j = 0; j < list.notes.length; ++j) {
+            var note = list.notes[j];
+            if(!$scope.notes[note.dayTime])
+              $scope.notes[note.dayTime] = [];
+
+            $scope.notes[note.dayTime].push({name: list.name, note: note.text});
+          }
+        }
+
+        console.log($scope.notes);
       }
 
       function save() {
@@ -108,12 +128,14 @@ angular.module('publicApp')
         $scope.noteTextarea = '';
     
         save();
+        convertListsToNotes();
       }
 
       $scope.getNotesForSelectedDay = function() {
-        return _.compact(_.map($scope.lists, function(listObj) {
-          var noteObj = _.findWhere(listObj.notes, {dayTime: $scope.selectedDay.timestamp});
-          return !noteObj ? undefined : { name: listObj.name, note: noteObj.text };
-        }));;
+        return $scope.notes ? $scope.notes[$scope.selectedDay.timestamp] : emptyArray;
+      }
+
+      $scope.noteAlreadyTaken = function(listObj) {
+        return $scope.notes ? _.findWhere($scope.notes[$scope.selectedDay.timestamp], {name: listObj.name}) : false;
       }
   }]);
