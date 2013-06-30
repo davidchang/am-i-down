@@ -37,15 +37,8 @@ angular.module('publicApp')
       }
 
       function save() {
-        console.log('saving data');
-        console.log($scope.lists);
-
         REST.saveLists($scope.lists);
       }
-
-      $scope.$on('saveListData', function() {
-        save();
-      });
       
       $scope.lastWeek = [];
       var d = new Date();
@@ -90,7 +83,7 @@ angular.module('publicApp')
             return;
           }
           
-          $scope.lists.push({ name: newMetric, public: false, startDate: new Date() });
+          $scope.lists.push({ name: newMetric, public: false, startDate: new Date(), days: [], notes: [] });
           save();
 
           $event.preventDefault();

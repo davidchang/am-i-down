@@ -50,7 +50,7 @@
     <h3>Select Day:</h3>
   </div>
   <div class='pull-right boxHolder'>
-    <span ng-class='{"box": true, "selected": day == selectedDay}' ng-click='changeSelectedDay(day)' ng-repeat='day in lastWeek'>
+    <span ng-class="{'box': true, 'selected': day == selectedDay}" ng-click='changeSelectedDay(day)' ng-repeat='day in lastWeek'>
       {{day.date}}
     </span>
   </div>
@@ -60,7 +60,7 @@
     <h3>Select Metric:</h3>
   </div>
   <div id='metricBtnHolder' class='span6'>
-    <button ng-class='{"metricBtn btn": true, "disabled": noteAlreadyTaken(listObj)}' ng-click='setMetricChosen(listObj)' ng-repeat='listObj in lists'>
+    <button ng-class="{'metricBtn btn': true, 'disabled': noteAlreadyTaken(listObj)}" ng-click='setMetricChosen(listObj)' ng-repeat='listObj in lists'>
       {{listObj.name}}
     </button>
   </div>
