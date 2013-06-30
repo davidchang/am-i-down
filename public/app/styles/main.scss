@@ -22,14 +22,18 @@ header {
   #links {
     margin-top: 20px;
   }
+  #logInViewDiv {
+    margin-bottom: 15px;
+  }
 }
 
 .listObj {
   border-bottom: 1px solid #CCC;
 }
 
-.loginLink {
+.headerLink {
   font-size: 1.5em;
+  margin-left: 20px;
 }
 
 .block {
@@ -180,5 +184,12 @@ textarea {
   }
   button { 
     margin-bottom: 10px;
+    &.deleteBtn { 
+      margin-left: 10px;
+    }
   }
+
+}
+.medSizeText {
+  font-size: 1.3em;
 }

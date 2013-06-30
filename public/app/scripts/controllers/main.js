@@ -34,12 +34,10 @@ angular.module('publicApp')
             $scope.notes[note.dayTime].push({name: list.name, note: note.text});
           }
         }
-
-        console.log($scope.notes);
       }
 
       function save() {
-        console.log('saving');
+        console.log('saving data');
         console.log($scope.lists);
 
         REST.saveLists($scope.lists);
@@ -137,5 +135,27 @@ angular.module('publicApp')
 
       $scope.noteAlreadyTaken = function(listObj) {
         return $scope.notes ? _.findWhere($scope.notes[$scope.selectedDay.timestamp], {name: listObj.name}) : false;
+      }
+
+      $scope.saveNoteChanges = function(noteForDay) {
+        var listWithNote = _.findWhere($scope.lists, {name: noteForDay.name});
+        var specificNote = _.findWhere(listWithNote.notes, {dayTime: $scope.selectedDay.timestamp});
+        specificNote.text = noteForDay.note;
+
+        save();
+        convertListsToNotes();
+      }
+
+      $scope.deleteNote = function(noteForDay) {
+        if(!confirm("Are you sure you want to delete this note for " + noteForDay.name + "?"))
+          return;
+
+        var listWithNote = _.findWhere($scope.lists, {name: noteForDay.name});
+        listWithNote.notes = _.reject(listWithNote.notes, function(i) {
+          return i.dayTime == $scope.selectedDay.timestamp; 
+        });
+
+        save();
+        convertListsToNotes();
       }
   }]);

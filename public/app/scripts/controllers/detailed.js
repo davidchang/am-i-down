@@ -17,4 +17,15 @@ angular.module('publicApp')
       } catch(err) {
         $scope.lists = [];
       }
+
+      function save() {
+        console.log('saving data');
+        console.log($scope.lists);
+
+        REST.saveLists($scope.lists);
+      }
+
+      $scope.$on('saveListData', function() {
+        save();
+      });
   }]);

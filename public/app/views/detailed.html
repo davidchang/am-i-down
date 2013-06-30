@@ -1,7 +1,26 @@
+<header>
+  <h1>
+    Am I Down?
+  </h1>
+  <div class='clearfix'>
+    <div class='pull-left'>
+      <h3>
+        Insights into behavioral trends
+      </h3>
+    </div>
+    <div id='links' class='pull-right'>
+      <a class='headerLink' href='#/main'>Home</a>
+      <a class='headerLink' href='logout'>Log out</a>
+    </div>
+  </div>
+</header>
+
+<h2>Your Metrics:</h2>
+
 <div class='listObj' ng-repeat="listObj in lists">
   <div id='list{{$index}}'>
     <div>
-        <h2>{{listObj.name}}</h2>
+        <h3>{{listObj.name}}</h3>
     </div>
 
     <heatmap index='{{$index}}' data='listObj.days'></heatmap>

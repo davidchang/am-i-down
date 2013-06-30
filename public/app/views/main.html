@@ -9,7 +9,8 @@
       </h3>
     </div>
     <div id='links' class='pull-right'>
-      <a class='loginLink' href='logout'>Log out</a>
+      <a class='headerLink' href='#/detailed'>Detailed</a>
+      <a class='headerLink' href='logout'>Log out</a>
     </div>
   </div>
 </header>
@@ -69,7 +70,7 @@
   <div class='span12'>
     <textarea ng-model='noteTextarea' placeholder='Your note on: {{metricChosen.name}}'></textarea>
     <div class='pull-right'>
-      <button class='btn btn-primary' ng-click='saveNote()'>Save Note</button>
+      <button class='btn' ng-click='saveNote()'>Save Note</button>
     </div>
   </div>
 </div>
@@ -85,8 +86,9 @@
   </div>
   <div class='span6'>
     <div>
-      <textarea>{{noteForDay.note}}</textarea>
-      <button class='btn pull-right disabled'>Save Changes</button>
+      <textarea ng-model='noteForDay.note'></textarea>
+      <button class='btn deleteBtn pull-right' ng-click='deleteNote(noteForDay)'>Delete Note</button>
+      <button class='btn pull-right' ng-click='saveNoteChanges(noteForDay)'>Save Changes to Note</button>
     </div>
   </div>
 </div>
