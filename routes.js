@@ -20,14 +20,16 @@ module.exports.setRoutes = function(app, passport) {
         if(req.session.invited) {
           var decodedUserId = req.session.invited;
           schemas.User.findById(decodedUserId, function(err, doc) {
-            console.log(doc);
             var toReturn =  {
-              invite: req.session.invited,
+              invite: {
+                id: req.session.invited,
+                name: doc.name
+              },
               user: req.user
             }
 
             res.end(JSON.stringify(toReturn));
-          }
+          });
         }
         else {
           res.end(JSON.stringify({ user: req.user }));
@@ -36,6 +38,10 @@ module.exports.setRoutes = function(app, passport) {
 
     app.get('/lists', function(req, res) {
         res.writeHead(200, { "Content-Type" : 'text/plain' });
+        if(!req.user.id) {
+          res.end('{}');
+          return;
+        }
         schemas.List.findOne({ userId: req.user.id }, function(error, data) {
             if(error) {
                 console.log(error);
@@ -47,14 +53,13 @@ module.exports.setRoutes = function(app, passport) {
     });
 
     app.post('/lists', function(req, res) {
-      console.log(req.body.lists);
-        schemas.List.update({ userId: req.user.id }, {
-            userId: req.user.id,
-            lists: req.body.lists
-        }, { upsert: true }, function(err) {
-            if(err)
-                console.log(err);
-        });
+      schemas.List.update({ userId: req.user.id }, {
+          userId: req.user.id,
+          lists: req.body.lists
+      }, { upsert: true }, function(err) {
+          if(err)
+              console.log(err);
+      });
     });
 
     /* INVITATION ROUTES */
@@ -78,7 +83,6 @@ module.exports.setRoutes = function(app, passport) {
 
       schemas.User.findById(decodedUserId, function(err, doc) {
         if(!err) {
-          console.log('just set req.session.invited');
           req.session.invited = decodedUserId;
         }
 

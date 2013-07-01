@@ -8,8 +8,6 @@ angular.module('publicApp')
 
             $http.get('/user')
                 .then(function(res) {
-                    console.log('from AUTH service');
-                    console.log(res);
                     deferred.resolve(res.data);
                 });
 

@@ -4,12 +4,14 @@ angular.module('publicApp')
   .controller('MainCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
       var emptyArray = [];
 
+      $scope.invitedData = {};
+
       Auth.isLoggedIn().then(function(loggedIn) {
         if(!loggedIn || !loggedIn.user)
           $location.path( '/login' );
 
         if(loggedIn.invite)
-          $location.path( '/account' );
+          $scope.invitedData = loggedIn.invite;
       });
 
       try {

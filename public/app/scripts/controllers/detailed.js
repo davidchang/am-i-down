@@ -2,9 +2,14 @@
 
 angular.module('publicApp')
   .controller('DetailedCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
+      $scope.invitedData = {};
+
       Auth.isLoggedIn().then(function(loggedIn) {
         if(!loggedIn || !loggedIn.user)
           $location.path( '/login' );
+
+        if(loggedIn.invite)
+          $scope.invitedData = loggedIn.invite;
       });
 
       try {
