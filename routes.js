@@ -1,4 +1,5 @@
-var schemas = require('./mongo');
+var schemas = require('./mongo'),
+  _ = require('underscore');
 
 module.exports.setRoutes = function(app, passport) {
     /* AUTHENTICATION */
@@ -8,6 +9,7 @@ module.exports.setRoutes = function(app, passport) {
         failureRedirect: '/#/login' }));
 
     app.get('/logout', function(req, res){
+        req.session.invited = null;
         req.logout();
         res.redirect('/#/login');
     });
@@ -15,15 +17,21 @@ module.exports.setRoutes = function(app, passport) {
     /* REST */
     app.get('/user', function(req, res) {
         res.writeHead(200, { "Content-Type" : 'text/plain' });
-        var toReturn = req.user;
-        if(req.user && req.session.invited) {
-          console.log('including ' + req.session.invited);
-          console.log(toReturn);
-          toReturn['session'] = req.session.invited;
-          console.log(toReturn);
-        }
+        if(req.session.invited) {
+          var decodedUserId = req.session.invited;
+          schemas.User.findById(decodedUserId, function(err, doc) {
+            console.log(doc);
+            var toReturn =  {
+              invite: req.session.invited,
+              user: req.user
+            }
 
-        res.end(JSON.stringify(toReturn));
+            res.end(JSON.stringify(toReturn));
+          }
+        }
+        else {
+          res.end(JSON.stringify({ user: req.user }));
+        }
     });
 
     app.get('/lists', function(req, res) {

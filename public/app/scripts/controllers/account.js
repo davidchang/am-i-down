@@ -4,7 +4,7 @@ angular.module('publicApp')
   .controller('AccountCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
       $scope.urlName = '';
       Auth.isLoggedIn().then(function(loggedIn) {
-          if(!loggedIn)
+          if(!loggedIn && !loggedIn.user)
               $location.path( '/login' );
 
         $scope.urlName = loggedIn.username;

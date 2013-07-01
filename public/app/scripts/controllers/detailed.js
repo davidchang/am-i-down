@@ -3,7 +3,7 @@
 angular.module('publicApp')
   .controller('DetailedCtrl', ['$scope', '$location', 'Auth', 'REST', function ($scope, $location, Auth, REST) {
       Auth.isLoggedIn().then(function(loggedIn) {
-        if(!loggedIn)
+        if(!loggedIn || !loggedIn.user)
           $location.path( '/login' );
       });
 

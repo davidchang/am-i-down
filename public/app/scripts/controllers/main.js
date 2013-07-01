@@ -5,11 +5,11 @@ angular.module('publicApp')
       var emptyArray = [];
 
       Auth.isLoggedIn().then(function(loggedIn) {
-        if(!loggedIn)
+        if(!loggedIn || !loggedIn.user)
           $location.path( '/login' );
 
-        console.log(loggedIn);
-        console.log(loggedIn.session);
+        if(loggedIn.invite)
+          $location.path( '/account' );
       });
 
       try {
