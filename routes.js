@@ -15,8 +15,15 @@ module.exports.setRoutes = function(app, passport) {
     /* REST */
     app.get('/user', function(req, res) {
         res.writeHead(200, { "Content-Type" : 'text/plain' });
-        console.log(req.user);
-        res.end(JSON.stringify(req.user));
+        var toReturn = req.user;
+        if(req.user && req.session.invited) {
+          console.log('including ' + req.session.invited);
+          console.log(toReturn);
+          toReturn['session'] = req.session.invited;
+          console.log(toReturn);
+        }
+
+        res.end(JSON.stringify(toReturn));
     });
 
     app.get('/lists', function(req, res) {
@@ -40,5 +47,35 @@ module.exports.setRoutes = function(app, passport) {
             if(err)
                 console.log(err);
         });
+    });
+
+    /* INVITATION ROUTES */
+
+    app.get('/user/inviteLink', function(req, res) {
+      res.writeHead(200, { "Content-Type" : 'text/plain' });
+
+      if(!req.user.id) {
+        res.end('');
+        return;
+      }
+
+      var encoded = new Buffer(req.user.id).toString('base64');
+      res.end('http://localhost:3000/invite/' + encoded);
+    });
+
+    app.get('/invite/:encoded', function(req, res) {
+      
+      var encoded = req.params.encoded;
+      var decodedUserId = new Buffer(encoded, 'base64').toString('ascii');
+
+      schemas.User.findById(decodedUserId, function(err, doc) {
+        if(!err) {
+          console.log('just set req.session.invited');
+          req.session.invited = decodedUserId;
+        }
+
+        res.redirect('/#/login');
+      });
+        
     });
 }
