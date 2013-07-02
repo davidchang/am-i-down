@@ -35,7 +35,9 @@ angular.module('publicApp')
           $scope.accountabilityLink = 'Error - please try reloading';
       });
 
+      $scope.accountability = {};
       REST.getAccountabilityPartners(function(res) {
-        console.log(res);
+        $scope.accountability = res.data;
+        console.log(res.data);
       });
   }]);

@@ -196,3 +196,13 @@ textarea {
 .bold {
   font-weight: bold;
 }
+#listPublicSettings {
+  .setting {
+    margin: 3px 0px;
+  }
+  label {
+    display: inline;
+    vertical-align: -13%;
+    margin-left: 3px;
+  }
+}
