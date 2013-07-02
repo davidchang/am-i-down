@@ -49,7 +49,7 @@ angular.module('publicApp')
       
       $scope.lastWeek = [];
       var d = new Date();
-      d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - (d.getDate() == 1 ? 6 : 7));
+      d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 6);
       for(var i = 0; i < 7; ++i && d.setDate(d.getDate() + 1)) {
         $scope.lastWeek.push( { date: d.getDate(), timestamp : d.valueOf(), selectedForNote: i == 6 } );
       }
