@@ -62,19 +62,29 @@ module.exports.setRoutes = function(app, passport) {
 
     app.post('/invitation', function(req, res) {
       if(req.body.accepted) {
-        var relationship = new schemas.Relationship({
-          userHolding: req.user.id,
-          userHeld: req.session.invited
-        });
-
-        relationship.save(function(err) {
-          res.writeHead(200, { "Content-Type" : 'text/plain' });
-          if(err)
+        schemas.User.findById(req.session.invited, function(err, doc) {
+          if(err) {
+            res.writeHead(200, { "Content-Type" : 'text/plain' });
             res.end(JSON.stringify({ error: err }));
-          else {
-            req.session.invited = null;
-            res.end(JSON.stringify({ success: true }));
+            return;
           }
+
+          var relationship = new schemas.Relationship({
+            userHoldingId: req.user.id,
+            userHoldingName: req.user.name,
+            userHeldId: req.session.invited,
+            userHeldName: doc.name
+          });
+
+          relationship.save(function(err) {
+            res.writeHead(200, { "Content-Type" : 'text/plain' });
+            if(err)
+              res.end(JSON.stringify({ error: err }));
+            else {
+              req.session.invited = null;
+              res.end(JSON.stringify({ success: true }));
+            }
+          });
         });
       }
       else {
@@ -111,7 +121,26 @@ module.exports.setRoutes = function(app, passport) {
         
     });
 
-    app.get('/user/accountabilityPartners', function(res, res) {
+    app.get('/user/accountabilityPartners', function(req, res) {
       res.writeHead(200, { "Content-Type" : 'text/plain' });
+
+      var toReturn = {};
+      schemas.Relationship.find({ userHeldId: req.user.id }).exec(function(err, data) {
+        if(err) {
+          res.end('{}');
+          return;
+        }
+        toReturn['held'] = data;
+        schemas.Relationship.find({ userHoldingId: req.user.id }).exec(function(err, data) {
+          if(err) {
+            res.end('{}');
+            return;
+          }
+          toReturn['holding'] = data;
+
+          res.end(JSON.stringify(toReturn));
+        });
+      });
+
     });
 }

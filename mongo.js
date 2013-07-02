@@ -44,8 +44,10 @@ var List = mongoose.model('List', listSchema);
 
 var relationshipSchema = mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
-    userHolding: String,
-    userHeld: String
+    userHoldingName: String,
+    userHoldingId: String,
+    userHeldName: String,
+    userHeldId: String
 });
 
 var Relationship = mongoose.model('Relationship', relationshipSchema);
