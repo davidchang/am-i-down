@@ -1,5 +1,6 @@
 var schemas = require('./mongo'),
-  _ = require('underscore');
+  _ = require('underscore'),
+  utils = require('./utils');
 
 module.exports.setRoutes = function(app, passport) {
     /* AUTHENTICATION */
@@ -93,14 +94,12 @@ module.exports.setRoutes = function(app, passport) {
         return;
       }
 
-      var encoded = new Buffer(req.user.id).toString('base64');
-      res.end('http://localhost:3000/invite/' + encoded);
+      res.end(utils.encryptInviteLink(req.user.id));
     });
 
     app.get('/invite/:encoded', function(req, res) {
       
-      var encoded = req.params.encoded;
-      var decodedUserId = new Buffer(encoded, 'base64').toString('ascii');
+      var decodedUserId = utils.decryptInviteLink(req.params.encoded);
 
       schemas.User.findById(decodedUserId, function(err, doc) {
         if(!err) {
