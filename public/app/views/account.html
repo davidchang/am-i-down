@@ -1,9 +1,21 @@
 <siteheader cur-page='account' invited='invitedData'></siteheader>
 
+<h2>People You're Holding Accountable</h2>
+
+<h2>People Who Are Holding You Accountable</h2>
+
+<div>Invite others to hold you accountable by sending them to this link:</div>
+<div><a href='{{accountabilityLink}}'>{{accountabilityLink}}</a></div>
+
+<h2>Personal Settings</h2>
+
 <div>
   <div>Lists are public if checked</div>
   <div ng-repeat='listObj in lists'>
-    <input type='checkbox' ng-click='save()' ng-model='listObj.public'></input>
-    {{listObj.name}}
+    <input id='listCheckbox{{$index}}' type='checkbox' ng-model='listObj.public'></input>
+    <label for='listCheckbox{{$index}}'>{{listObj.name}}</label>
+  </div>
+  <div>
+    <button class='btn' ng-click='save()'>Save Changes</button>
   </div>
 </div>

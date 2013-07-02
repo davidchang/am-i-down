@@ -20,13 +20,10 @@ module.exports.setRoutes = function(app, passport) {
         if(req.session.invited) {
           var decodedUserId = req.session.invited;
           schemas.User.findById(decodedUserId, function(err, doc) {
-            var toReturn =  {
-              invite: {
-                id: req.session.invited,
-                name: doc.name
-              },
-              user: req.user
-            }
+            var toReturn =  {};
+            toReturn['user'] = req.user;
+            //if(doc.id != req.user.id)
+              toReturn['invite'] = { name: doc.name };
 
             res.end(JSON.stringify(toReturn));
           });
@@ -62,6 +59,30 @@ module.exports.setRoutes = function(app, passport) {
       });
     });
 
+    app.post('/invitation', function(req, res) {
+      if(req.body.accepted) {
+        var relationship = new schemas.Relationship({
+          userHolding: req.user.id,
+          userHeld: req.session.invited
+        });
+
+        relationship.save(function(err) {
+          res.writeHead(200, { "Content-Type" : 'text/plain' });
+          if(err)
+            res.end(JSON.stringify({ error: err }));
+          else {
+            req.session.invited = null;
+            res.end(JSON.stringify({ success: true }));
+          }
+        });
+      }
+      else {
+        req.session.invited = null;
+        res.writeHead(200, { "Content-Type" : 'text/plain' });
+        res.end(JSON.stringify({ success: true }));
+      }
+    });
+
     /* INVITATION ROUTES */
 
     app.get('/user/inviteLink', function(req, res) {
@@ -89,5 +110,9 @@ module.exports.setRoutes = function(app, passport) {
         res.redirect('/#/login');
       });
         
+    });
+
+    app.get('/user/accountabilityPartners', function(res, res) {
+      res.writeHead(200, { "Content-Type" : 'text/plain' });
     });
 }

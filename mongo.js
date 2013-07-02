@@ -42,7 +42,16 @@ var listSchema = mongoose.Schema({
 
 var List = mongoose.model('List', listSchema);
 
+var relationshipSchema = mongoose.Schema({
+    timestamp: { type: Date, default: Date.now },
+    userHolding: String,
+    userHeld: String
+});
+
+var Relationship = mongoose.model('Relationship', relationshipSchema);
+
 module.exports = {
     User: User,
-    List: List
+    List: List,
+    Relationship: Relationship
 }

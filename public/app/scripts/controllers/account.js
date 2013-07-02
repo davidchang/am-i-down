@@ -26,4 +26,16 @@ angular.module('publicApp')
       $scope.save = function() {
         REST.saveLists($scope.lists);
       }
+
+      $scope.accountabilityLink = 'Loading...';
+      REST.getOwnInviteLink(function(res) {
+        if(res && res.data)
+          $scope.accountabilityLink = res.data;
+        else
+          $scope.accountabilityLink = 'Error - please try reloading';
+      });
+
+      REST.getAccountabilityPartners(function(res) {
+        console.log(res);
+      });
   }]);

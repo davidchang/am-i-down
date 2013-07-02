@@ -18,5 +18,10 @@
 </header>
 
 <div class='alert alert-info' ng-show='invited.name'>
-  You've received an invitation to hold <span class='bold'>{{invited.name}}</span> accountable. <button ng-click='changeStatus(true)' class='btn'>Accept</button> or <button ng-click='changeStatus(false)' class='btn'>Reject</button>
+  <div ng-hide='accepted'>
+    You've received an invitation to hold <span class='bold'>{{invited.name}}</span> accountable. <button ng-click='changeStatus(true)' class='btn'>Accept</button> or <button ng-click='changeStatus(false)' class='btn'>Reject</button>
+  </div>
+  <div ng-show='accepted'>
+    You are successfully connected to {{invited.name}}. <span ng-hide="'account' == curpage">You can view more on the <a href='#/account'>Account</a> page.</span>
+  </div>
 </div>
