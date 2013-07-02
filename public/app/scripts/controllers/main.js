@@ -10,8 +10,10 @@ angular.module('publicApp')
         if(!loggedIn || !loggedIn.user)
           $location.path( '/login' );
 
-        if(loggedIn.invite)
+        if(loggedIn.invite) {
+          console.log(loggedIn.invite);
           $scope.invitedData = loggedIn.invite;
+        }
       });
 
       try {

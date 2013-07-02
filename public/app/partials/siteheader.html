@@ -16,3 +16,7 @@
     </div>
   </div>
 </header>
+
+<div ng-show='invited'>
+  You've received an invitation to hold <span class='bold'>{{invited.name}}</span> accountable. <button ng-click='changeStatus(true)' class='btn'>Accept</button> or <button ng-click='changeStatus(false)' class='btn'>Reject</button>
+</div>

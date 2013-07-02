@@ -5,6 +5,12 @@ angular.module('publicApp')
     return {
       templateUrl: 'partials/siteheader.html',
       restrict: 'E',
-      scope: { curPage: '@' }
+      scope: { curPage: '@', invited: '=' },
+      link: function postLink($scope, element, attrs) {
+        $scope.changeStatus = function(accepted) {
+          console.log(accepted);
+          console.log($scope.invited.id);
+        }
+      }
     };
   });
