@@ -4,7 +4,7 @@
   <h2 ng-show='accountability.holding'>People You're Holding Accountable</h2>
   <h2 ng-hide='accountability.holding'>You're Not Holding Anyone Accountable</h2>
   <div ng-repeat='person in accountability.holding'>
-    <a href='#/account/{{person.userHeldId}}'>
+    <a href='#/user/{{person.userHeldId}}'>
       {{person.userHeldName}}
     </a>
   </div>

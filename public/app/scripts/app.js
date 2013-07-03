@@ -12,6 +12,10 @@ angular.module('publicApp', ['LocalStorageModule', 'ui.keypress'])
         templateUrl: 'views/account.html',
         controller: 'AccountCtrl'
       })
+      .when('/user/:userId', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
       .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'

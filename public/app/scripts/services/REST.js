@@ -32,6 +32,14 @@ angular.module('publicApp')
             .then(function(res) {
               callback && callback(res);
             });
+        },
+        getAccountableLists: function(userId, callback) {
+          $http.get('/lists', {
+              params: { userId: userId }
+            })
+            .then(function(res) {
+              callback && callback(res);
+            });
         }
     };
   }]);
