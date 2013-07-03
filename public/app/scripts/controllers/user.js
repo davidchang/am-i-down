@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('UserCtrl', ['$scope', '$routeParams', 'Auth', 'REST', function ($scope, $routeParams, Auth, REST) {
+  .controller('UserCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'REST', function ($scope, $location, $routeParams, Auth, REST) {
     Auth.isLoggedIn().then(function(loggedIn) {
       if(!loggedIn || !loggedIn.user)
         $location.path( '/login' );
     });
+
+    $scope.name = '';
 
     try {
       REST.getAccountableLists($routeParams.userId, function(res) {
@@ -13,6 +15,8 @@ angular.module('publicApp')
           $scope.lists = [];
         else
           $scope.lists = res.data.lists;
+
+        $scope.name = res && res.data ? res.data.name : '';
       });
     } catch(err) {
       $scope.lists = [];

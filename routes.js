@@ -35,19 +35,59 @@ module.exports.setRoutes = function(app, passport) {
     });
 
     app.get('/lists', function(req, res) {
-        res.writeHead(200, { "Content-Type" : 'text/plain' });
-        if(!req.user.id) {
-          res.end('{}');
-          return;
-        }
+
+      var forSpecificUser = req.query ? req.query.userId : null;
+      console.log("SPECIFIC USER:");
+      console.log(forSpecificUser);
+
+      res.writeHead(200, { "Content-Type" : 'text/plain' });
+      //must be authenticated
+      if(!req.user.id) {
+        res.end('{}');
+        return;
+      }
+      if(!forSpecificUser) {
         schemas.List.findOne({ userId: req.user.id }, function(error, data) {
-            if(error) {
-                console.log(error);
-                res.end(JSON.stringify({ error: error }));
-                return;
-            }
-            res.end(JSON.stringify(data));
+          if(error) {
+            console.log(error);
+            res.end(JSON.stringify({ error: error }));
+            return;
+          }
+          res.end(JSON.stringify(data));
         });
+      }
+      else {
+        //the current req.user must be able to view forSpecificUser's metrics
+        schemas.Relationship.findOne( { userHeldId: forSpecificUser, userHoldingId: req.user.id }, function(error, data) {
+          if(error) {
+            console.log(error);
+            res.end(JSON.stringify({ error: error }));
+            return;
+          }
+
+          if(!data) {
+            console.log("Relationship does not exist");
+            res.end(JSON.stringify({ error: "That relationship does not exist" }));
+            return;
+          }
+
+          var name = data.userHeldName;
+
+          schemas.List.findOne({ userId: forSpecificUser }, function(error, data) {
+            if(error) {
+              console.log(error);
+              res.end(JSON.stringify({ error: error }));
+              return;
+            }
+            var toReturn = {};
+            toReturn['name'] = name;
+            //TODO remove !public ones from data.lists
+            toReturn['lists'] = data.lists;
+            res.end(JSON.stringify(toReturn));
+          });
+
+        });
+      }
     });
 
     app.post('/lists', function(req, res) {
