@@ -1,27 +1,39 @@
 <siteheader cur-page='account' invited='invitedData'></siteheader>
 
-<h2>People You're Holding Accountable</h2>
-<div ng-repeat='person in accountability.holding'>
-  {{person.userHeldName}}
-</div>
-
-<h2>People Who Are Holding You Accountable</h2>
-<div ng-repeat='person in accountability.held'>
-  {{person.userHoldingName}}
-</div>
-
-<h2>Personal Settings</h2>
-<div>Invite others to hold you accountable by sending them to this link:</div>
-<div><a href='{{accountabilityLink}}'>{{accountabilityLink}}</a></div>
-
-<div id='listPublicSettings'>
-  <h4>Change visibility of metrics</h4>
-  <h5>(Checkbox indicates metrics are visible to your accountability partners)</h5>
-  <div class='setting' ng-repeat='listObj in lists'>
-    <input id='listCheckbox{{$index}}' type='checkbox' ng-model='listObj.public'></input>
-    <label for='listCheckbox{{$index}}'>{{listObj.name}}</label>
+<section class='accountSection'>
+  <h2 ng-show='accountability.holding'>People You're Holding Accountable</h2>
+  <h2 ng-hide='accountability.holding'>You're Not Holding Anyone Accountable</h2>
+  <div ng-repeat='person in accountability.holding'>
+    <a href='#/account/{{person.userHeldId}}'>
+      {{person.userHeldName}}
+    </a>
   </div>
-  <div>
-    <button class='btn' ng-click='save()'>Save Changes</button>
+</section>
+
+<section class='accountSection'>
+  <h2 ng-show='accountability.held'>People Who Are Holding You Accountable</h2>
+  <h2 ng-hide='accountability.held'>No One Is Holding You Accountable</h2>
+  <div ng-repeat='person in accountability.held'>
+    {{person.userHoldingName}}
   </div>
-</div>
+
+  <div class='inviteLink'>
+    Invite others to hold you accountable by sending them to this link: <a href='{{accountabilityLink}}'>{{accountabilityLink}}</a>
+  </div>
+</section>
+
+<section class='accountSection'>
+  <h2>Personal Settings</h2>
+
+  <div id='listPublicSettings'>
+    <h4>Change visibility of metrics:</h4>
+    <h5>(Checkbox indicates metrics are visible to your accountability partners)</h5>
+    <div class='setting' ng-repeat='listObj in lists'>
+      <input id='listCheckbox{{$index}}' type='checkbox' ng-model='listObj.public'></input>
+      <label for='listCheckbox{{$index}}'>{{listObj.name}}</label>
+    </div>
+    <div id='saveChangesBtn'>
+      <button class='btn' ng-click='save()'>Save Changes</button>
+    </div>
+  </div>
+</section>
