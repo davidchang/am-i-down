@@ -2,6 +2,11 @@
 
 <h2>Your Metrics:</h2>
 
+<div>
+  <button ng-click='useDayNumbers = !useDayNumbers' class='btn'>Toggle Day Names with Numbers</button>
+  <button ng-click='save()' class='btn'>Save Changes</button>
+</div>
+
 <div class='listObj row-fluid clearfix' ng-repeat="listObj in lists">
   <div class='pull-left'>
     <h3>{{listObj.name}}</h3>
@@ -73,7 +78,7 @@
     <div>
       <textarea ng-model='noteForDay.note'></textarea>
       <button class='btn deleteBtn pull-right' ng-click='deleteNote(noteForDay)'>Delete Note</button>
-      <button class='btn pull-right' ng-click='saveNoteChanges(noteForDay)'>Save Changes to Note</button>
+      <button class='btn pull-right' ng-click='saveNoteChanges(noteForDay)'>Save Changes</button>
     </div>
   </div>
 </div>

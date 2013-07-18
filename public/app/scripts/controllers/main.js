@@ -43,15 +43,19 @@ angular.module('publicApp')
         }
       }
 
-      function save() {
+      $scope.autosave = false;
+
+      $scope.save = function() {
         REST.saveLists($scope.lists);
       }
+
+      var dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
       
       $scope.lastWeek = [];
       var d = new Date();
       d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 6);
       for(var i = 0; i < 7; ++i && d.setDate(d.getDate() + 1)) {
-        $scope.lastWeek.push( { date: d.getDate(), timestamp : d.valueOf(), selectedForNote: i == 6 } );
+        $scope.lastWeek.push( { date: d.getDate(), dayName: dayNames[d.getDay()], timestamp : d.valueOf(), selectedForNote: i == 6 } );
       }
 
       $scope.changeStatus = function(listObj, date) {
@@ -69,7 +73,7 @@ angular.module('publicApp')
           });
         }
 
-        save();
+        $scope.autosave && save();
       }
 
       function getClassColor(listObj, date) {
@@ -91,7 +95,7 @@ angular.module('publicApp')
           }
           
           $scope.lists.push({ name: newMetric, public: false, startDate: new Date(), days: [], notes: [] });
-          save();
+          $scope.autosave && save();
 
           $event.preventDefault();
           $event.target.blur();
