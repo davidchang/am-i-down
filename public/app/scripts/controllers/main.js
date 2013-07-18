@@ -73,7 +73,7 @@ angular.module('publicApp')
           });
         }
 
-        $scope.autosave && save();
+        $scope.autosave && $scope.save();
       }
 
       function getClassColor(listObj, date) {
@@ -95,7 +95,7 @@ angular.module('publicApp')
           }
           
           $scope.lists.push({ name: newMetric, public: false, startDate: new Date(), days: [], notes: [] });
-          $scope.autosave && save();
+          $scope.autosave && $scope.save();
 
           $event.preventDefault();
           $event.target.blur();
@@ -129,7 +129,7 @@ angular.module('publicApp')
         $scope.metricChosen = undefined;
         $scope.noteTextarea = '';
     
-        save();
+        $scope.save();
         convertListsToNotes();
       }
 
@@ -146,7 +146,7 @@ angular.module('publicApp')
         var specificNote = _.findWhere(listWithNote.notes, {dayTime: $scope.selectedDay.timestamp});
         specificNote.text = noteForDay.note;
 
-        save();
+        $scope.save();
         convertListsToNotes();
       }
 
@@ -159,7 +159,7 @@ angular.module('publicApp')
           return i.dayTime == $scope.selectedDay.timestamp; 
         });
 
-        save();
+        $scope.save();
         convertListsToNotes();
       }
   }]);
