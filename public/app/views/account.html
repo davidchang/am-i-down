@@ -27,13 +27,23 @@
 
   <div id='listPublicSettings'>
     <h4>Change visibility of metrics:</h4>
-    <h5>(Checkbox indicates metrics are visible to your accountability partners)</h5>
-    <div class='setting' ng-repeat='listObj in lists'>
-      <input id='listCheckbox{{$index}}' type='checkbox' ng-model='listObj.public'></input>
-      <label for='listCheckbox{{$index}}'>{{listObj.name}}</label>
+
+    <div class='clearfix'>
+      <h4>Public: (Visible to your accountability partners)</h4>
+      <div ng-class="{'setting pull-left': true, 'hide': !listObj.public}" class='setting' ng-repeat='listObj in lists'>
+        <button class='btn' ng-click='listObj.public = !listObj.public'>{{listObj.name}}</button>
+      </div>
     </div>
+
+    <div class='clearfix'>
+      <h4>Private: (Not visible to anyone)</h4>
+      <div ng-class="{'setting pull-left': true, 'hide': listObj.public}" class='setting' ng-repeat='listObj in lists'>
+        <button class='btn' ng-click='listObj.public = !listObj.public'>{{listObj.name}}</button>
+      </div>
+    </div>
+
     <div id='saveChangesBtn'>
-      <button class='btn' ng-click='save()'>Save Changes</button>
+      <button class='btn' ng-click='save()'>Save Privacy Settings</button>
     </div>
   </div>
 </section>
