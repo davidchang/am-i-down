@@ -79,10 +79,15 @@ module.exports.setRoutes = function(app, passport) {
               res.end(JSON.stringify({ error: error }));
               return;
             }
+            
+            var listsToReturn = _.filter(data.lists, function(list) {
+              return list.public;
+            });
+
             var toReturn = {};
             toReturn['name'] = name;
-            //TODO remove !public ones from data.lists
-            toReturn['lists'] = data.lists;
+            toReturn['lists'] = listsToReturn;
+
             res.end(JSON.stringify(toReturn));
           });
 
