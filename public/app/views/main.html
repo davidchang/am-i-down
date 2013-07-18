@@ -14,7 +14,7 @@
   <div class='pull-right boxHolder'>
     <div id='boxes{{$index}}'>
       <span ng-class='getClass(listObj, day)' ng-click='changeStatus(listObj, day)' ng-repeat='day in lastWeek'>
-        {{day.date}}
+        {{day | dayNameOrNumber:useDayNumbers}}
       </span>
     </div>
   </div>
@@ -27,7 +27,7 @@
   <div class='pull-right boxHolder'>
     <div id='boxes{{$index}}'>
       <span class='box inactive' ng-repeat='day in lastWeek'>
-        {{day.date}}
+        {{day | dayNameOrNumber:useDayNumbers}}
       </span>
     </div>
   </div>
@@ -41,7 +41,7 @@
   </div>
   <div class='pull-right boxHolder'>
     <span ng-class="{'box': true, 'selected': day == selectedDay}" ng-click='changeSelectedDay(day)' ng-repeat='day in lastWeek'>
-      {{day.date}}
+      {{day | dayNameOrNumber:useDayNumbers}}
     </span>
   </div>
 </div>

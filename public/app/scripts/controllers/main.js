@@ -55,7 +55,7 @@ angular.module('publicApp')
       var d = new Date();
       d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 6);
       for(var i = 0; i < 7; ++i && d.setDate(d.getDate() + 1)) {
-        $scope.lastWeek.push( { date: d.getDate(), dayName: dayNames[d.getDay()], timestamp : d.valueOf(), selectedForNote: i == 6 } );
+        $scope.lastWeek.push( { date: d.getDate(), name: dayNames[d.getDay()], timestamp : d.valueOf(), selectedForNote: i == 6 } );
       }
 
       $scope.changeStatus = function(listObj, date) {
