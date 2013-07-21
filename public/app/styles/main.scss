@@ -86,7 +86,7 @@ svg {
     background-color: #ED1C24;
     fill: #ED1C24;
   }
-  .neutral:hover, .green:hover, .red:hover
+  .neutral.editable:hover, .green.editable:hover, .red.editable:hover
   {
     stroke: #000;
     stroke-width: 1px;
@@ -118,19 +118,20 @@ svg {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-}
-.box.green {
-  background-color: #27ae60;
-}
-.box.red {
-  background-color: #c0392b;
-}
-.box.inactive {
-  cursor: default;
-  opacity: 0.4;
-}
-.box.selected {
-  background-color: #3498db;
+
+  &.green {
+    background-color: #27ae60;
+  }
+  &.red {
+    background-color: #c0392b;
+  }
+  &.inactive {
+    cursor: default;
+    opacity: 0.4;
+  }
+  &.selected {
+    background-color: #3498db;
+  }
 }
 #newMetricTextbox {
   margin-top: 12px;
@@ -211,4 +212,8 @@ textarea {
 }
 .accountSection {
   margin-bottom: 50px;
+}
+#detailedSaveButton {
+  margin-top: 15px;
+  margin-left: 15px;
 }

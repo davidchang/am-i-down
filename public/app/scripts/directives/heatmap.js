@@ -5,7 +5,7 @@ angular.module('publicApp')
     return {
       template: '<div id="mymap{{index}}"></div>',
       restrict: 'E',
-      scope: { index: '@', data: '=' },
+      scope: { index: '@', data: '=', editable: '@' },
       link: function postLink(scope, element, attrs) {
         function save() {
           $rootScope.$broadcast('saveListData');
@@ -16,6 +16,7 @@ angular.module('publicApp')
         oneYearAgo.setFullYear(today.getFullYear() - 1);
 
         setTimeout(function() {
+
           var id = '#mymap' + scope.index;
 
           d3.select(id).append("svg")
@@ -107,18 +108,25 @@ angular.module('publicApp')
             .data(function(d) { return getDayDomain(d); })
             .enter().append("svg:rect")
             .attr("class", function(d) {
+              var colorClass;
               var dayMatch = _.findWhere(scope.data, { dayTime : d.valueOf() });
-              if(dayMatch == null) return (d.valueOf() <= today && d.valueOf() > oneYearAgo) ? 'neutral' : 'hidden';
-              return dayMatch.good ? 'green' : 'red';
+              if(dayMatch == null)
+                colorClass = (d.valueOf() <= today && d.valueOf() > oneYearAgo) ? 'neutral' : 'hidden';
+              else
+                colorClass = dayMatch.good ? 'green' : 'red';
+
+              return colorClass + (scope.editable != 'false' ? ' editable': '');
             })
             .attr("width", 10)
             .attr("height", 10)
             .attr("x", function(d) { return 1; })
-            .attr("y", function(d, i) { return i * 15 + 1; })
-            .on('click', function(d) {
+            .attr("y", function(d, i) { return i * 15 + 1; });
+
+          if(scope.editable != 'false') {
+            rect.on('click', function(d) {
               var $this = d3.select(this);
               var curClass = $this[0][0].classList[0];
-              $this.attr('class', nextClassDictionary[curClass]);
+              $this.attr('class', nextClassDictionary[curClass] + (scope.editable != 'false' ? ' editable' : ''));
 
               if(nextClassDictionary[curClass] == 'neutral') {
                 //remove the entry
@@ -142,28 +150,10 @@ angular.module('publicApp')
 
               save();
             });
-            ;
+          }
      
           // Appeding a title to each subdomain
           rect.append("svg:title").text(function(d){ return d3.time.format('%x')(d); });
-
-          function repaint(newValue) {
-            var domainSvg = d3.select('#mymap' + scope.index + ' .graph')
-              .selectAll("svg")
-              ;
-
-            var rect = domainSvg.selectAll("rect")
-              .attr("class", function(d) {
-                var dayMatch = _.findWhere(newValue, { dayTime : d.valueOf() });
-                if(dayMatch == null) return (d.valueOf() <= today && d.valueOf() > oneYearAgo) ? 'neutral' : 'hidden';
-                return dayMatch.good ? 'green' : 'red';
-              })
-              ;
-          }
-
-          scope.$watch('data', function(oldValue, newValue) {
-            repaint(oldValue);
-          }, true);
         });
 
       }

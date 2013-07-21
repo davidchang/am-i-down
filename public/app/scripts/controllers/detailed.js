@@ -23,14 +23,15 @@ angular.module('publicApp')
         $scope.lists = [];
       }
 
-      function save() {
+      $scope.save = function() {
         console.log('saving data');
-        console.log($scope.lists);
-
         REST.saveLists($scope.lists);
       }
 
+      $scope.autosave = false;
+
       $scope.$on('saveListData', function() {
-        save();
+        console.log('received saveListData event');
+        $scope.autosave && $scope.save();
       });
   }]);

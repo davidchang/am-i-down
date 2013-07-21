@@ -1,13 +1,24 @@
 <siteheader cur-page='detailed' invited='invitedData'></siteheader>
 
-<h2>Your Metrics:</h2>
+<div class='clearfix'>
+  <h2 class='pull-left'>Your Metrics:</h2>
+  <button id='detailedSaveButton' ng-if='lists.length' class='btn pull-left' ng-click='save()'>Save Changes</button>
+</div>
 
-<div class='listObj' ng-repeat="listObj in lists">
-  <div id='list{{$index}}'>
-    <div>
-        <h3>{{listObj.name}}</h3>
+<div ng-switch on='lists.length'>
+  <div ng-switch-when='0'>
+    <h3>No Metrics Available.</h3>
+  </div>
+  <div ng-switch-default>
+
+    <div class='listObj' ng-repeat="listObj in lists">
+      <div id='list{{$index}}'>
+        <div>
+            <h3>{{listObj.name}}</h3>
+        </div>
+
+        <heatmap index='{{$index}}' data='listObj.days' editable='true'></heatmap>
+      </div>
     </div>
-
-    <heatmap index='{{$index}}' data='listObj.days'></heatmap>
   </div>
 </div>

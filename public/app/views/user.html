@@ -1,11 +1,20 @@
 <siteheader></siteheader>
 <h2 ng-show='name'>{{name}}'s Metrics</h2>
-<div class='listObj' ng-repeat="listObj in lists">
-  <div id='list{{$index}}'>
-    <div>
-        <h3>{{listObj.name}}</h3>
-    </div>
 
-    <heatmap index='{{$index}}' data='listObj.days'></heatmap>
+<div ng-switch on='lists.length'>
+  <div ng-switch-when='0'>
+    <h3>No Metrics Available (may be all private)</h3>
+  </div>
+  <div ng-switch-default>
+
+    <div class='listObj' ng-repeat="listObj in lists">
+      <div id='list{{$index}}'>
+        <div>
+            <h3>{{listObj.name}}</h3>
+        </div>
+
+        <heatmap index='{{$index}}' data='listObj.days' editable='false'></heatmap>
+      </div>
+    </div>
   </div>
 </div>
